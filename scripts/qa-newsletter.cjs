@@ -11,32 +11,36 @@ let errors=[];
 const widths=[320,375,390,414,600,1000];
 for(const width of widths){
  const page=await browser.newPage({viewport:{width,height:900},deviceScaleFactor:1});
- await page.goto('http://127.0.0.1:8765/daily-email.html',{waitUntil:'load'});
+ await page.goto('http://127.0.0.1:8765/',{waitUntil:'load'});
  await page.evaluate(()=>Promise.all(Array.from(document.images).map(img=>img.decode().catch(()=>null))));
  const result=await page.evaluate(()=>{
   const imgs=Array.from(document.images).map(i=>({alt:i.alt,src:i.src,loaded:i.complete&&i.naturalWidth>0}));
   const w=document.documentElement.scrollWidth;
   const rect=document.querySelector('.email').getBoundingClientRect();
   const list=Array.from(document.querySelectorAll('.news-thumb-cell')).map(x=>x.getBoundingClientRect().right);
-  return {scrollWidth:w,emailWidth:rect.width,images:imgs,thumbnailsRight:list};
+  return {scrollWidth:w,emailWidth:rect.width,images:imgs,thumbnailsRight:list,previewControls:document.querySelectorAll('#desktop,#mobile,iframe,.toggle').length};
  });
  const missing=result.images.filter(i=>!i.loaded);
  const overflow=result.scrollWidth>width+1;
- if(missing.length||overflow)errors.push({width,overflow,scrollWidth:result.scrollWidth,broken:missing});
+ if(missing.length||overflow||result.previewControls)errors.push({width,overflow,scrollWidth:result.scrollWidth,broken:missing,previewControls:result.previewControls});
  await page.screenshot({path:path.join(out,'email-'+width+'.png'),fullPage:true});
- console.log(JSON.stringify({width,scrollWidth:result.scrollWidth,emailWidth:result.emailWidth,images:result.images.length,broken:missing.length,overflow}));
+ console.log(JSON.stringify({width,scrollWidth:result.scrollWidth,emailWidth:result.emailWidth,images:result.images.length,broken:missing.length,overflow,previewControls:result.previewControls}));
  await page.close();
 }
 const p=await browser.newPage({viewport:{width:1100,height:900}});
 await p.goto('http://127.0.0.1:8765/',{waitUntil:'load'});
-await p.waitForTimeout(1200);
-const iframeHeight=await p.locator('iframe').evaluate(x=>({actual:x.getBoundingClientRect().height,bodyHeight:x.contentDocument.body.scrollHeight}));
+await p.evaluate(()=>Promise.all(Array.from(document.images).map(img=>img.decode().catch(()=>null))));
 await p.screenshot({path:path.join(out,'preview-desktop.png'),fullPage:true});
-await p.locator('#mobile').click();
-await p.waitForTimeout(800);
-await p.screenshot({path:path.join(out,'preview-mobile.png'),fullPage:true});
-console.log(JSON.stringify({previewIframe:iframeHeight}));
+const mobile=await browser.newPage({viewport:{width:375,height:900},deviceScaleFactor:1});
+await mobile.goto('http://127.0.0.1:8765/',{waitUntil:'load'});
+await mobile.evaluate(()=>Promise.all(Array.from(document.images).map(img=>img.decode().catch(()=>null))));
+await mobile.screenshot({path:path.join(out,'preview-mobile.png'),fullPage:true});
+const direct=await browser.newPage({viewport:{width:375,height:900}});
+await direct.goto('http://127.0.0.1:8765/daily-email.html',{waitUntil:'load'});
+const same=await direct.evaluate(()=>document.body.innerText.includes('BERITA PILIHAN')&&document.body.innerText.includes('Berita terbaru lewat WhatsApp'));
+if(!same)errors.push({directEmail:"Mismatch with home page"});
+await direct.close();await mobile.close();await p.close();
 await browser.close();server.close();
 if(errors.length){console.error(JSON.stringify({FAIL:errors},null,2));process.exit(1)}
-console.log('PASS: all images load and mobile widths show no horizontal overflow');
+console.log('PASS: root preview and direct email are responsive without toggle/iframe, all images load');
 })().catch(e=>{console.error(e);process.exit(1)});
