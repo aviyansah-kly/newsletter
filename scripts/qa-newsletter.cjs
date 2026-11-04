@@ -36,7 +36,8 @@ for(const width of widths){
   const deepPanelWidth=panelPhoto?.getBoundingClientRect().width||1;
   const deepPhotoRatio=deepPhotoWidth/deepPanelWidth;
   const deepPanelHeight=panelPhoto?.getBoundingClientRect().height||0;
-  const targetCompactHeight=width<=360?335:width<=520?315:255;
+  const viewportWidth=window.innerWidth;
+  const targetCompactHeight=viewportWidth<=360?335:viewportWidth<=520?315:255;
   const deepCompact=deepPanelHeight<=targetCompactHeight;
   const waOutline=button?getComputedStyle(button).borderTopStyle==='solid'&&parseFloat(getComputedStyle(button).borderTopWidth)>=2:false;
 
