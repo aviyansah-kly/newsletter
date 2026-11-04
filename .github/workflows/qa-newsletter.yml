@@ -1,0 +1,35 @@
+name: QA Newsletter Responsive
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'daily-email.html'
+      - 'index.html'
+      - 'assets/**'
+      - 'scripts/qa-newsletter.cjs'
+      - '.github/workflows/qa-newsletter.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Playwright
+        run: npm install --no-save playwright
+      - name: Run desktop and mobile browser QA
+        run: node scripts/qa-newsletter.cjs
+      - name: Upload visual QA screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: newsletter-qa-screenshots
+          path: qa-screenshots/
+          retention-days: 10
