@@ -32,15 +32,20 @@ for(const width of widths){
   const photo=document.querySelector('.deep-photo');
   const panelPhoto=document.querySelector('.deep-panel');
   const deepPhotoFullHeight=!!(photo&&panelPhoto&&Math.abs(photo.getBoundingClientRect().height-panelPhoto.getBoundingClientRect().height)<3);
+  const deepPhotoWidth=photo?.getBoundingClientRect().width||0;
+  const deepPanelWidth=panelPhoto?.getBoundingClientRect().width||1;
+  const deepPhotoRatio=deepPhotoWidth/deepPanelWidth;
+  const waOutline=button?getComputedStyle(button).borderTopStyle==='solid'&&parseFloat(getComputedStyle(button).borderTopWidth)>=2:false;
+
   const panelRect=panel?.getBoundingClientRect(),footerRect=document.querySelector('td[bgcolor="#F9F9F9"]')?.getBoundingClientRect();
   const waFullWidth=!!(panelRect&&Math.abs(panelRect.width-rect.width)<3);
   const waTouchesFooter=!!(panelRect&&footerRect&&Math.abs(panelRect.bottom-footerRect.top)<3);
 
-  return {scrollWidth:w,emailWidth:rect.width,images:imgs,thumbnailsRight:list,maxFontWeight,isRounded,waAnimation,highlight,previewControls:document.querySelectorAll('#desktop,#mobile,iframe,.toggle').length,wa:{panelWidth,buttonWidth,titleCentered,descCentered,iconPresent,buttonWeight,waFullWidth,waTouchesFooter,deepPhotoFullHeight}};
+  return {scrollWidth:w,emailWidth:rect.width,images:imgs,thumbnailsRight:list,maxFontWeight,isRounded,waAnimation,highlight,previewControls:document.querySelectorAll('#desktop,#mobile,iframe,.toggle').length,wa:{panelWidth,buttonWidth,titleCentered,descCentered,iconPresent,buttonWeight,waFullWidth,waTouchesFooter,deepPhotoFullHeight,deepPhotoRatio,waOutline}};
  });
  const missing=result.images.filter(i=>!i.loaded);
  const overflow=result.scrollWidth>width+1;
- if(missing.length||overflow||result.maxFontWeight>700||!result.isRounded||!result.highlight||result.previewControls||!result.wa.titleCentered||!result.wa.descCentered||!result.wa.iconPresent||result.wa.buttonWidth<result.wa.panelWidth*0.70||result.wa.buttonWeight>400||!result.wa.waFullWidth||!result.wa.waTouchesFooter||!result.wa.deepPhotoFullHeight)errors.push({width,overflow,scrollWidth:result.scrollWidth,broken:missing,previewControls:result.previewControls,whatsApp:result.wa});
+ if(missing.length||overflow||result.maxFontWeight>700||!result.isRounded||!result.highlight||result.previewControls||!result.wa.titleCentered||!result.wa.descCentered||!result.wa.iconPresent||result.wa.buttonWidth<result.wa.panelWidth*0.70||result.wa.buttonWeight>400||!result.wa.waFullWidth||!result.wa.waTouchesFooter||!result.wa.deepPhotoFullHeight||result.wa.deepPhotoRatio<0.40||!result.wa.waOutline)errors.push({width,overflow,scrollWidth:result.scrollWidth,broken:missing,previewControls:result.previewControls,whatsApp:result.wa});
  await page.screenshot({path:path.join(out,'email-'+width+'.png'),fullPage:true});
  console.log(JSON.stringify({width,scrollWidth:result.scrollWidth,emailWidth:result.emailWidth,images:result.images.length,broken:missing.length,overflow,previewControls:result.previewControls,wa:result.wa}));
  await page.close();
