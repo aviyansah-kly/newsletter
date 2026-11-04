@@ -15,6 +15,7 @@ for(const width of widths){
  await page.evaluate(()=>Promise.all(Array.from(document.images).map(img=>img.decode().catch(()=>null))));
  const result=await page.evaluate(()=>{
   const imgs=Array.from(document.images).map(i=>({alt:i.alt,src:i.src,loaded:i.complete&&i.naturalWidth>0}));
+  const fontWeights=Array.from(document.querySelectorAll('h1,h2,h3,.newshead,.wa-title')).map(n=>parseInt(getComputedStyle(n).fontWeight,10));const maxFontWeight=Math.max(...fontWeights);const isRounded=getComputedStyle(document.querySelector('.wa-button')).borderRadius==='999px';const waAnimation=getComputedStyle(document.querySelector('.wa-button')).animationName;const highlight=document.querySelector('h1')?.textContent?.includes('Sorotan Hari Ini');
   const w=document.documentElement.scrollWidth;
   const rect=document.querySelector('.email').getBoundingClientRect();
   const list=Array.from(document.querySelectorAll('.news-thumb-cell')).map(x=>x.getBoundingClientRect().right);
@@ -27,11 +28,11 @@ for(const width of widths){
   const titleCentered=title&&getComputedStyle(title).textAlign==='center';
   const descCentered=desc&&getComputedStyle(desc).textAlign==='center';
   const iconPresent=!!button?.querySelector('img[src$="/WA.svg"]');
-  return {scrollWidth:w,emailWidth:rect.width,images:imgs,thumbnailsRight:list,previewControls:document.querySelectorAll('#desktop,#mobile,iframe,.toggle').length,wa:{panelWidth,buttonWidth,titleCentered,descCentered,iconPresent}};
+  return {scrollWidth:w,emailWidth:rect.width,images:imgs,thumbnailsRight:list,maxFontWeight,isRounded,waAnimation,highlight,previewControls:document.querySelectorAll('#desktop,#mobile,iframe,.toggle').length,wa:{panelWidth,buttonWidth,titleCentered,descCentered,iconPresent}};
  });
  const missing=result.images.filter(i=>!i.loaded);
  const overflow=result.scrollWidth>width+1;
- if(missing.length||overflow||result.previewControls||!result.wa.titleCentered||!result.wa.descCentered||!result.wa.iconPresent||result.wa.buttonWidth<result.wa.panelWidth*0.78)errors.push({width,overflow,scrollWidth:result.scrollWidth,broken:missing,previewControls:result.previewControls,whatsApp:result.wa});
+ if(missing.length||overflow||result.maxFontWeight>700||!result.isRounded||!result.highlight||result.previewControls||!result.wa.titleCentered||!result.wa.descCentered||!result.wa.iconPresent||result.wa.buttonWidth<result.wa.panelWidth*0.78)errors.push({width,overflow,scrollWidth:result.scrollWidth,broken:missing,previewControls:result.previewControls,whatsApp:result.wa});
  await page.screenshot({path:path.join(out,'email-'+width+'.png'),fullPage:true});
  console.log(JSON.stringify({width,scrollWidth:result.scrollWidth,emailWidth:result.emailWidth,images:result.images.length,broken:missing.length,overflow,previewControls:result.previewControls,wa:result.wa}));
  await page.close();
@@ -46,7 +47,7 @@ await mobile.evaluate(()=>Promise.all(Array.from(document.images).map(img=>img.d
 await mobile.screenshot({path:path.join(out,'preview-mobile.png'),fullPage:true});
 const direct=await browser.newPage({viewport:{width:375,height:900}});
 await direct.goto('http://127.0.0.1:8765/daily-email.html',{waitUntil:'load'});
-const same=await direct.evaluate(()=>document.body.innerText.includes('BERITA PILIHAN')&&document.body.innerText.includes('Berita terbaru lewat WhatsApp'));
+const same=await direct.evaluate(()=>document.body.innerText.includes('BERITA PILIHAN')&&document.body.innerText.includes('Berita terbaru lewat WhatsApp')&&document.body.innerText.includes('Sorotan Hari Ini'));
 if(!same)errors.push({directEmail:"Mismatch with home page"});
 await direct.close();await mobile.close();await p.close();
 await browser.close();server.close();
