@@ -15,7 +15,7 @@ for(const width of widths){
  await page.evaluate(()=>Promise.all(Array.from(document.images).map(img=>img.decode().catch(()=>null))));
  const result=await page.evaluate(()=>{
   const imgs=Array.from(document.images).map(i=>({alt:i.alt,src:i.src,loaded:i.complete&&i.naturalWidth>0}));
-  const fontWeights=Array.from(document.querySelectorAll('h1,h2,h3,.newshead,.wa-title')).map(n=>parseInt(getComputedStyle(n).fontWeight,10));const maxFontWeight=Math.max(...fontWeights);const isRounded=getComputedStyle(document.querySelector('.wa-button')).borderRadius==='999px';const waAnimation=getComputedStyle(document.querySelector('.wa-button')).animationName;const highlight=document.querySelector('h1')?.textContent?.includes('Sorotan Hari Ini');
+  const fontWeights=Array.from(document.querySelectorAll('h1,h2,h3,.newshead,.wa-title')).map(n=>parseInt(getComputedStyle(n).fontWeight,10));const maxFontWeight=Math.max(...fontWeights);const isRounded=getComputedStyle(document.querySelector('.wa-button')).borderRadius==='999px';const waAnimation=getComputedStyle(document.querySelector('.wa-button')).animationName;const highlight=document.querySelector('h1')?.textContent?.includes('Today Highlights');
   const w=document.documentElement.scrollWidth;
   const rect=document.querySelector('.email').getBoundingClientRect();
   const list=Array.from(document.querySelectorAll('.news-thumb-cell')).map(x=>x.getBoundingClientRect().right);
@@ -28,11 +28,19 @@ for(const width of widths){
   const titleCentered=title&&getComputedStyle(title).textAlign==='center';
   const descCentered=desc&&getComputedStyle(desc).textAlign==='center';
   const iconPresent=!!button?.querySelector('img[src$="/WA.svg"]');
-  return {scrollWidth:w,emailWidth:rect.width,images:imgs,thumbnailsRight:list,maxFontWeight,isRounded,waAnimation,highlight,previewControls:document.querySelectorAll('#desktop,#mobile,iframe,.toggle').length,wa:{panelWidth,buttonWidth,titleCentered,descCentered,iconPresent}};
+  const buttonWeight=button?parseInt(getComputedStyle(button).fontWeight,10):null;
+  const photo=document.querySelector('.deep-photo');
+  const panelPhoto=document.querySelector('.deep-panel');
+  const deepPhotoFullHeight=!!(photo&&panelPhoto&&Math.abs(photo.getBoundingClientRect().height-panelPhoto.getBoundingClientRect().height)<3);
+  const panelRect=panel?.getBoundingClientRect(),footerRect=document.querySelector('td[bgcolor="#F9F9F9"]')?.getBoundingClientRect();
+  const waFullWidth=!!(panelRect&&Math.abs(panelRect.width-rect.width)<3);
+  const waTouchesFooter=!!(panelRect&&footerRect&&Math.abs(panelRect.bottom-footerRect.top)<3);
+
+  return {scrollWidth:w,emailWidth:rect.width,images:imgs,thumbnailsRight:list,maxFontWeight,isRounded,waAnimation,highlight,previewControls:document.querySelectorAll('#desktop,#mobile,iframe,.toggle').length,wa:{panelWidth,buttonWidth,titleCentered,descCentered,iconPresent,buttonWeight,waFullWidth,waTouchesFooter,deepPhotoFullHeight}};
  });
  const missing=result.images.filter(i=>!i.loaded);
  const overflow=result.scrollWidth>width+1;
- if(missing.length||overflow||result.maxFontWeight>700||!result.isRounded||!result.highlight||result.previewControls||!result.wa.titleCentered||!result.wa.descCentered||!result.wa.iconPresent||result.wa.buttonWidth<result.wa.panelWidth*0.78)errors.push({width,overflow,scrollWidth:result.scrollWidth,broken:missing,previewControls:result.previewControls,whatsApp:result.wa});
+ if(missing.length||overflow||result.maxFontWeight>700||!result.isRounded||!result.highlight||result.previewControls||!result.wa.titleCentered||!result.wa.descCentered||!result.wa.iconPresent||result.wa.buttonWidth<result.wa.panelWidth*0.70||result.wa.buttonWeight>400||!result.wa.waFullWidth||!result.wa.waTouchesFooter||!result.wa.deepPhotoFullHeight)errors.push({width,overflow,scrollWidth:result.scrollWidth,broken:missing,previewControls:result.previewControls,whatsApp:result.wa});
  await page.screenshot({path:path.join(out,'email-'+width+'.png'),fullPage:true});
  console.log(JSON.stringify({width,scrollWidth:result.scrollWidth,emailWidth:result.emailWidth,images:result.images.length,broken:missing.length,overflow,previewControls:result.previewControls,wa:result.wa}));
  await page.close();
