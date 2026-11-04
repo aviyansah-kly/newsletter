@@ -45,7 +45,7 @@ for(const width of widths){
   const deepCompact=deepPanelHeight<=targetCompactHeight;
   const waOutline=button?getComputedStyle(button).borderTopStyle==='solid'&&parseFloat(getComputedStyle(button).borderTopWidth)>=2:false;
 
-  const panelRect=panel?.getBoundingClientRect(),footerRect=document.querySelector('td[bgcolor="#F9F9F9"]')?.getBoundingClientRect();
+  const panelRect=panel?.getBoundingClientRect(),footerRect=document.querySelector('.footer-content')?.getBoundingClientRect();
   const waFullWidth=!!(panelRect&&Math.abs(panelRect.width-rect.width)<3);
   const waTouchesFooter=!!(panelRect&&footerRect&&Math.abs(panelRect.bottom-footerRect.top)<3);
 
