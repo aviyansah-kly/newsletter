@@ -18,13 +18,22 @@ for(const width of widths){
   const w=document.documentElement.scrollWidth;
   const rect=document.querySelector('.email').getBoundingClientRect();
   const list=Array.from(document.querySelectorAll('.news-thumb-cell')).map(x=>x.getBoundingClientRect().right);
-  return {scrollWidth:w,emailWidth:rect.width,images:imgs,thumbnailsRight:list,previewControls:document.querySelectorAll('#desktop,#mobile,iframe,.toggle').length};
+  const panel=document.querySelector('.wa-panel');
+  const button=document.querySelector('.wa-button');
+  const title=document.querySelector('.wa-title');
+  const desc=document.querySelector('.wa-description');
+  const panelWidth=panel?.getBoundingClientRect().width||0;
+  const buttonWidth=button?.getBoundingClientRect().width||0;
+  const titleCentered=title&&getComputedStyle(title).textAlign==='center';
+  const descCentered=desc&&getComputedStyle(desc).textAlign==='center';
+  const iconPresent=!!button?.querySelector('img[src$="/WA.svg"]');
+  return {scrollWidth:w,emailWidth:rect.width,images:imgs,thumbnailsRight:list,previewControls:document.querySelectorAll('#desktop,#mobile,iframe,.toggle').length,wa:{panelWidth,buttonWidth,titleCentered,descCentered,iconPresent}};
  });
  const missing=result.images.filter(i=>!i.loaded);
  const overflow=result.scrollWidth>width+1;
- if(missing.length||overflow||result.previewControls)errors.push({width,overflow,scrollWidth:result.scrollWidth,broken:missing,previewControls:result.previewControls});
+ if(missing.length||overflow||result.previewControls||!result.wa.titleCentered||!result.wa.descCentered||!result.wa.iconPresent||result.wa.buttonWidth<result.wa.panelWidth*0.78)errors.push({width,overflow,scrollWidth:result.scrollWidth,broken:missing,previewControls:result.previewControls,whatsApp:result.wa});
  await page.screenshot({path:path.join(out,'email-'+width+'.png'),fullPage:true});
- console.log(JSON.stringify({width,scrollWidth:result.scrollWidth,emailWidth:result.emailWidth,images:result.images.length,broken:missing.length,overflow,previewControls:result.previewControls}));
+ console.log(JSON.stringify({width,scrollWidth:result.scrollWidth,emailWidth:result.emailWidth,images:result.images.length,broken:missing.length,overflow,previewControls:result.previewControls,wa:result.wa}));
  await page.close();
 }
 const p=await browser.newPage({viewport:{width:1100,height:900}});
