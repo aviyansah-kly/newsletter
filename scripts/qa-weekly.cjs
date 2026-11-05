@@ -20,7 +20,7 @@ return {
 scrollWidth:document.documentElement.scrollWidth,emailWidth:email.getBoundingClientRect().width,images:images.length,broken:images.filter(x=>!x.ok),
 weight:Math.max(...[...document.querySelectorAll('h1,h2,h3')].map(x=>parseInt(getComputedStyle(x).fontWeight,10))),
 sections:['Sepekan dalam 60 detik','CERITA PEKAN INI','Yang dekat dengan harimu','YANG RAMAI DIPERTANYAKAN','CATAT UNTUK PEKAN DEPAN'].every(x=>document.body.innerText.includes(x)),
- title:document.querySelector('h1')?.innerText.includes('Sepekan terakhir'),
+ title:document.querySelector('h1')?.innerText.includes('Apa yang penting'),
 footer:!!footer&&footer.innerText.includes('Weekly Newsletter')&&footer.innerText.includes('Jelajahi Liputan6'),
 panelFull:!!p&&Math.abs(p.width-email.getBoundingClientRect().width)<2,digestBox:!!document.querySelector('.digest-box')&&getComputedStyle(document.querySelector('.digest-box')).borderTopLeftRadius==='12px',
 digestContained:!!document.querySelector('.digest-box')&&!document.querySelector('.digest-box').contains(document.querySelector('.weekly-cover'))&&document.querySelector('.digest-box').getBoundingClientRect().bottom<document.querySelector('.weekly-cover').getBoundingClientRect().top,
@@ -37,7 +37,7 @@ await page.close();
 }
 const direct=await browser.newPage({viewport:{width:375,height:900}});
 await direct.goto('http://127.0.0.1:8766/weekly-email.html',{waitUntil:'load'});
-const directMatch=await direct.evaluate(()=>document.body.innerText.includes('Sepekan dalam 60 detik')&&document.body.innerText.includes('Sepekan terakhir')&&document.body.innerText.includes('Berita terbaru lewat WhatsApp'));
+const directMatch=await direct.evaluate(()=>document.body.innerText.includes('Sepekan dalam 60 detik')&&document.body.innerText.includes('Apa yang penting')&&document.body.innerText.includes('Berita terbaru lewat WhatsApp'));
 if(!directMatch)errors.push({directMatch:false});
 await direct.close();
 await browser.close();server.close();
