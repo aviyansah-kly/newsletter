@@ -5,6 +5,9 @@ on:
     branches: [main]
     paths:
       - 'daily-email.html'
+      - 'weekly.html'
+      - 'weekly-email.html'
+      - 'scripts/qa-weekly.cjs'
       - 'index.html'
       - 'assets/**'
       - 'scripts/qa-newsletter.cjs'
@@ -26,10 +29,19 @@ jobs:
         run: npm install --no-save playwright
       - name: Run desktop and mobile browser QA
         run: node scripts/qa-newsletter.cjs
+      - name: Run Weekly desktop and mobile QA
+        run: node scripts/qa-weekly.cjs
       - name: Upload visual QA screenshots
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: newsletter-qa-screenshots
           path: qa-screenshots/
+          retention-days: 10
+      - name: Upload Weekly visual QA screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: weekly-newsletter-qa-screenshots
+          path: qa-weekly-screenshots/
           retention-days: 10

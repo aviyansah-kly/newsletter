@@ -1,19 +1,21 @@
-# Liputan6 Daily Newsletter
+# Liputan6 Newsletter — Daily & Weekly
 
-Prototype **Selamat Pagi dari Liputan6**, edisi 4 November 2026, untuk presentasi internal editorial & product.
-
-## File
-- `index.html` — preview browser dengan pilihan desktop dan mobile.
-- `daily-email.html` — HTML tabel responsif untuk uji email.
-- `assets/logo-email.png` — aset logo asli dari Figma New Homepage L6 (node `996:5609`, ukuran asli 172×32 px).
-
-## Catatan
-- Konten berita dan tautan mengarah ke artikel Liputan6 yang relevan pada edisi tersebut.
-- Gambar utama masih diambil dari sumber ANTARA melalui URL HTTPS eksternal dan merupakan **foto arsip 2025**, bukan foto kejadian pada 2026.
-- Branding mengikuti [Figma New Homepage L6](https://www.figma.com/design/Qz2ldnGXTD1lg25Qk5UCof/New-Homepage-L6?node-id=996-4715): logo asli, Inter, brand `#FF3300`, footer `#F9F9F9`, dan teks sekunder `#696F77`.
-- `daily-email.html` menggunakan URL absolut `raw.githubusercontent.com` untuk gambar logo agar bisa dites di email. Sebelum kampanye publik, pindahkan semua aset ke domain HTTPS milik KLY/Liputan6, ganti URL img dan tambahkan unsubscribe resmi dari ESP.
-- Inter dipakai untuk typography; klien email yang tidak mendukung font web otomatis memakai Arial/Helvetica.
-- Jangan mengirimkan email produksi tanpa QA Gmail, Outlook, Apple Mail dan persetujuan editorial.
+Two responsive email newsletter concepts using the Liputan6 brand, Inter typography and email-friendly table layouts.
 
 ## Preview
-Setelah GitHub Pages / Cloudflare Pages diaktifkan, gunakan `index.html` sebagai halaman utama. Repository saja tidak otomatis menerbitkan URL preview web.
+- **Daily / Today Highlights:** https://aviyansah-kly.github.io/newsletter/
+- **Weekly / Pekan Ini:** https://aviyansah-kly.github.io/newsletter/weekly.html
+
+## Source
+- `index.html` and `daily-email.html`: Daily edition (4 November 2026). Identical markup.
+- `weekly.html` and `weekly-email.html`: Weekly edition (29 October–4 November 2026). Identical markup.
+- `assets/`: shared logo, icons and local images.
+- `scripts/qa-newsletter.cjs`, `scripts/qa-weekly.cjs`: responsive browser screenshot and image checks.
+
+## Editorial approach
+Daily: Top Story → Why It Matters → Selected News → InDepth.
+Weekly: personal introduction → 60-second recap → lead story with impact → everyday relevance → myth clarification → what to watch next.
+
+Article facts and links reflect Liputan6 reporting for the example issue. Images are archival or contextual, not necessarily article-specific, and must be replaced with licensed CMS images when moving to production. Keep photograph credits accurate.
+
+Before external delivery: editorial approval, licensed photos, QA in Gmail/Outlook/Apple Mail, ESP-managed unsubscribe and compliant sender details. CSS animation is progressive enhancement only and may not work in every email client.
