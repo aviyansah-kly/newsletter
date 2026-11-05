@@ -17,10 +17,12 @@ img{border:0;display:block}a{text-decoration:none;color:inherit}
   .news-thumb-cell .thumb{width:104px!important;height:82px!important;max-width:104px!important;object-fit:cover!important}
   .newshead{font-size:16px!important;line-height:1.33!important}
   .summary{font-size:12px!important;line-height:1.55!important}
-  .deep-copy{padding:15px 10px 15px 17px!important}
-  .deep-title{font-size:17px!important;line-height:1.3!important}
-  .deep-photo{width:154px!important;min-width:154px!important;max-width:154px!important;height:298px!important;padding:0!important;background-size:cover!important}
-  .deep-img{width:154px!important;height:298px!important;object-fit:cover!important;object-position:center!important}
+  .deep-panel,.deep-panel tr,.deep-copy,.deep-photo{display:block!important;width:100%!important;max-width:100%!important;box-sizing:border-box!important}
+  .deep-copy{padding:20px 22px 22px!important}
+  .deep-title{font-size:20px!important;line-height:1.3!important}
+  .deep-photo{height:auto!important;min-width:0!important;padding:0!important;background-size:cover!important;border-radius:12px 12px 0 0!important}
+  .deep-photo a{display:block!important;height:auto!important}
+  .deep-img{display:block!important;width:100%!important;max-width:100%!important;height:194px!important;object-fit:cover!important;object-position:center!important;border-radius:12px 12px 0 0!important}
   .wa-content{padding:25px 21px 26px!important;text-align:center!important}
   .wa-title{font-size:19px!important;line-height:1.28!important;text-align:center!important}
   .wa-description{font-size:12px!important;text-align:center!important}
@@ -28,17 +30,13 @@ img{border:0;display:block}a{text-decoration:none;color:inherit}
   .daily-signature{font-size:31px!important}
   .footer-content{padding-top:27px!important;padding-bottom:26px!important}
 }
-@media screen and (min-width:521px) and (max-width:620px){
-  .deep-photo{width:224px!important;min-width:224px!important;max-width:224px!important;height:240px!important}
-  .deep-img{width:224px!important;height:240px!important}
-}
 @media screen and (max-width:360px){
   .pad{padding-left:16px!important;padding-right:16px!important}
   .mainhead{font-size:28px!important}
   .news-thumb-cell{width:92px!important;min-width:92px!important}
   .news-thumb-cell .thumb{width:92px!important;height:80px!important}
-  .deep-photo{width:122px!important;min-width:122px!important;max-width:122px!important;height:319px!important}
-  .deep-img{width:122px!important;height:319px!important}
+  .deep-copy{padding:18px 17px 20px!important}
+  .deep-img{height:175px!important}
 }
 
 .wa-button{animation:waBreathe 3.4s ease-in-out infinite;transition:background-color .2s ease,box-shadow .2s ease}
@@ -65,16 +63,16 @@ img{border:0;display:block}a{text-decoration:none;color:inherit}
 <tr><td class="pad" style="padding:0 40px"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-bottom:1px solid #E5E7EB"><tr><td class="news-copy" valign="top" style="padding:22px 14px 22px 0"><p style="margin:0 0 9px;color:#FF3300;font-size:10px;font-weight:700;letter-spacing:1.25px">02 &nbsp; OLAHRAGA</p><h3 class="newshead" style="font-size:18px;line-height:1.3;font-weight:700;margin:0 0 10px;letter-spacing:-.45px;color:#141619"><a href="https://www.liputan6.com/bola/read/8327561/jadwal-dan-tempat-menonton-korea-open-2026-rabu-4-november?utm_source=newsletter&utm_medium=email&utm_campaign=today_highlights_20261104&utm_content=story_2" style="color:inherit;text-decoration:none">11 wakil Indonesia turun di Korea Open hari ini</a></h3><p class="summary" style="margin:0 0 10px;color:#585858;font-size:12px;line-height:1.65">Sebanyak 11 wakil Indonesia bertanding di babak 32 besar Korea Open. Pertandingan pertama mulai pukul 08.00 WIB.</p><p style="margin:0;color:#888F96;font-size:11px">4 min read</p></td><td class="news-thumb-cell" valign="top" width="136" style="width:136px;padding:22px 0"><a href="https://www.liputan6.com/bola/read/8327561/jadwal-dan-tempat-menonton-korea-open-2026-rabu-4-november?utm_source=newsletter&utm_medium=email&utm_campaign=today_highlights_20261104&utm_content=story_thumb_2"><img class="thumb" src="https://aviyansah-kly.github.io/newsletter/assets/photos/news-badminton.jpg" width="136" height="94" alt="Foto kontekstual bulu tangkis" style="width:136px;height:94px;object-fit:cover;border-radius:6px"></a></td></tr></table></td></tr>
 <tr><td class="pad" style="padding:0 40px"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-bottom:1px solid #E5E7EB"><tr><td class="news-copy" valign="top" style="padding:22px 14px 22px 0"><p style="margin:0 0 9px;color:#FF3300;font-size:10px;font-weight:700;letter-spacing:1.25px">03 &nbsp; CEK FAKTA</p><h3 class="newshead" style="font-size:18px;line-height:1.3;font-weight:700;margin:0 0 10px;letter-spacing:-.45px;color:#141619"><a href="https://www.liputan6.com/cek-fakta/read/8327540/waspada-hoaks-pemberian-bantuan-catut-nama-australia-simak-daftarnya?utm_source=newsletter&utm_medium=email&utm_campaign=today_highlights_20261104&utm_content=story_3" style="color:inherit;text-decoration:none">Waspada hoaks bantuan yang mencatut nama Australia</a></h3><p class="summary" style="margin:0 0 10px;color:#585858;font-size:12px;line-height:1.65">Sejumlah klaim bantuan mengatasnamakan Australia beredar di media sosial. Simak hasil pemeriksaan fakta Liputan6.</p><p style="margin:0;color:#888F96;font-size:11px">4 min read</p></td><td class="news-thumb-cell" valign="top" width="136" style="width:136px;padding:22px 0"><a href="https://www.liputan6.com/cek-fakta/read/8327540/waspada-hoaks-pemberian-bantuan-catut-nama-australia-simak-daftarnya?utm_source=newsletter&utm_medium=email&utm_campaign=today_highlights_20261104&utm_content=story_thumb_3"><img class="thumb" src="https://aviyansah-kly.github.io/newsletter/assets/photos/news-factcheck.jpg" width="136" height="94" alt="Foto kontekstual penggunaan smartphone" style="width:136px;height:94px;object-fit:cover;border-radius:6px"></a></td></tr></table></td></tr>
 <tr><td class="pad" style="padding:29px 40px 34px">
-<table role="presentation" class="deep-panel" width="100%" bgcolor="#1C242B" cellpadding="0" cellspacing="0" style="width:100%;background:#1C242B;border-collapse:separate!important;border-spacing:0;border-radius:12px;overflow:hidden">
-<tr><td class="deep-copy" valign="middle" style="padding:18px 16px 18px 21px">
+<table role="presentation" dir="rtl" class="deep-panel" width="100%" bgcolor="#1C242B" cellpadding="0" cellspacing="0" style="width:100%;background:#1C242B;border-collapse:separate!important;border-spacing:0;border-radius:12px;overflow:hidden">
+<tr><td dir="ltr" class="deep-photo" valign="top" width="220" height="240" style="width:220px;height:240px;padding:0;background:#51686A url('https://aviyansah-kly.github.io/newsletter/assets/photos/news-semeru.jpg') center center / cover no-repeat;border-radius:0 12px 12px 0">
+<a href="https://www.liputan6.com/regional/read/8326366/pvmbg-getaran-banjir-lahar-hujan-semeru-terjadi-selama-6-jam?utm_source=newsletter&utm_medium=email&utm_campaign=today_highlights_20261104&utm_content=in_depth_thumb" style="display:block;width:100%;height:100%;text-decoration:none"><img class="deep-img" src="https://aviyansah-kly.github.io/newsletter/assets/photos/news-semeru.jpg" width="220" height="240" alt="Foto arsip Gunung Semeru, 2025" style="display:block;width:220px;height:240px;object-fit:cover;object-position:center;border-radius:0 12px 12px 0"></a>
+</td><td dir="ltr" class="deep-copy" valign="middle" style="padding:18px 16px 18px 21px">
 <p style="font-size:10px;letter-spacing:1.3px;font-weight:700;color:#FF946D;margin:0 0 8px">INDEPTH</p>
 <h3 class="deep-title" style="font-size:20px;line-height:1.24;letter-spacing:-.5px;font-weight:700;color:#FFFFFF;margin:0 0 8px"><a href="https://www.liputan6.com/regional/read/8326366/pvmbg-getaran-banjir-lahar-hujan-semeru-terjadi-selama-6-jam?utm_source=newsletter&utm_medium=email&utm_campaign=today_highlights_20261104&utm_content=in_depth" style="color:#FFFFFF;text-decoration:none">Mengapa lahar Semeru perlu diwaspadai?</a></h3>
 <p class="deep-desc" style="font-size:12px;line-height:1.6;color:#C5CDD3;margin:0 0 8px">PVMBG mencatat getaran lahar selama enam jam. Simak risiko di sekitar aliran sungai.</p>
 <p style="font-size:11px;line-height:1.5;color:#A4B0BA;margin:0">5 min read</p>
-</td><td class="deep-photo" valign="top" width="220" height="240" style="width:220px;height:240px;padding:0;background:#51686A url('https://aviyansah-kly.github.io/newsletter/assets/photos/news-semeru.jpg') center center / cover no-repeat;border-radius:0 12px 12px 0">
-<a href="https://www.liputan6.com/regional/read/8326366/pvmbg-getaran-banjir-lahar-hujan-semeru-terjadi-selama-6-jam?utm_source=newsletter&utm_medium=email&utm_campaign=today_highlights_20261104&utm_content=in_depth_thumb" style="display:block;width:100%;height:100%;text-decoration:none"><img class="deep-img" src="https://aviyansah-kly.github.io/newsletter/assets/photos/news-semeru.jpg" width="220" height="240" alt="Foto arsip Gunung Semeru, 2025" style="display:block;width:220px;height:240px;object-fit:cover;object-position:center;border-radius:0 12px 12px 0"></a>
 </td></tr></table></td></tr>
-<tr><td class="pad daily-signoff" style="padding:22px 40px 30px;background:#FFFFFF"><p style="margin:0 0 1px;font-size:11px;line-height:1.5;color:#7B838C">Salam hangat,</p><p class="daily-signature" style="margin:0;color:#E44A2B;font-family:'Caveat','Snell Roundhand','Bradley Hand','Segoe Script','Brush Script MT',cursive;font-size:34px;font-style:italic;font-weight:600;line-height:1.35;letter-spacing:-.7px">Redaksi Liputan6</p></td></tr>
+<tr><td class="pad daily-signoff" style="padding:22px 40px 30px;background:#FFFFFF"><p class="daily-closing" style="margin:0 0 16px;font-size:13px;line-height:1.8;color:#48515A">Itu kabar pilihan kami hari ini. Semoga membantu kamu memahami apa yang terjadi dan mengapa itu penting. Sampai bertemu di edisi berikutnya.</p><p style="margin:0 0 1px;font-size:11px;line-height:1.5;color:#7B838C">Salam hangat,</p><p class="daily-signature" style="margin:0;color:#E44A2B;font-family:'Caveat','Snell Roundhand','Bradley Hand','Segoe Script','Brush Script MT',cursive;font-size:34px;font-style:italic;font-weight:600;line-height:1.35;letter-spacing:-.7px">Redaksi Liputan6</p></td></tr>
 <tr><td class="wa-bleed" style="padding:0;background:#F0FAF3">
 <table class="wa-panel" role="presentation" width="100%" bgcolor="#F0FAF3" cellpadding="0" cellspacing="0" style="width:100%;background:#F0FAF3;border:0;border-collapse:separate!important;border-spacing:0;border-radius:14px 14px 0 0;overflow:hidden">
 <tr><td class="wa-content" align="center" style="padding:30px 45px 31px;text-align:center">

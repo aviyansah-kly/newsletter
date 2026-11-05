@@ -31,17 +31,21 @@ for(const width of widths){
   const footer=document.querySelector('.footer-content');
   const footerStructure=!!footer&&['Jelajahi Liputan6','Ikuti Liputan6','Berhenti berlangganan'].every(t=>footer.innerText.includes(t))&&footer.querySelectorAll('.footer-links a').length===4;
   const footerOverflow=footer?footer.getBoundingClientRect().right>window.innerWidth+1:false;
+  const sign=document.querySelector('.daily-signoff');
+  const signValid=!!sign&&sign.innerText.includes('Itu kabar pilihan kami hari ini.')&&sign.innerText.includes('Salam hangat,')&&sign.innerText.includes('Redaksi Liputan6')&&sign.getBoundingClientRect().bottom<=document.querySelector('.wa-panel').getBoundingClientRect().top+2;
 
   const buttonWeight=button?parseInt(getComputedStyle(button).fontWeight,10):null;
   const photo=document.querySelector('.deep-photo');
   const panelPhoto=document.querySelector('.deep-panel');
-  const deepPhotoFullHeight=!!(photo&&panelPhoto&&Math.abs(photo.getBoundingClientRect().height-panelPhoto.getBoundingClientRect().height)<3);
+  const copy=document.querySelector('.deep-copy');
+  const mobileDeepStack=!!(photo&&panelPhoto&&copy)&&photo.getBoundingClientRect().width>=panelPhoto.getBoundingClientRect().width-3&&photo.getBoundingClientRect().bottom<=copy.getBoundingClientRect().top+2;
+  const deepPhotoFullHeight=window.innerWidth<=620?mobileDeepStack:!!(photo&&panelPhoto&&Math.abs(photo.getBoundingClientRect().height-panelPhoto.getBoundingClientRect().height)<3);
   const deepPhotoWidth=photo?.getBoundingClientRect().width||0;
   const deepPanelWidth=panelPhoto?.getBoundingClientRect().width||1;
   const deepPhotoRatio=deepPhotoWidth/deepPanelWidth;
   const deepPanelHeight=panelPhoto?.getBoundingClientRect().height||0;
   const viewportWidth=window.innerWidth;
-  const targetCompactHeight=viewportWidth<=360?335:viewportWidth<=520?315:255;
+  const targetCompactHeight=viewportWidth<=620?440:255;
   const deepCompact=deepPanelHeight<=targetCompactHeight;
   const waOutline=button?getComputedStyle(button).borderTopStyle==='solid'&&parseFloat(getComputedStyle(button).borderTopWidth)>=2:false;
 
@@ -49,11 +53,11 @@ for(const width of widths){
   const waFullWidth=!!(panelRect&&Math.abs(panelRect.width-rect.width)<3);
   const waTouchesFooter=!!(panelRect&&footerRect&&Math.abs(panelRect.bottom-footerRect.top)<3);
 
-  return {scrollWidth:w,emailWidth:rect.width,images:imgs,thumbnailsRight:list,maxFontWeight,isRounded,waAnimation,highlight,editorialContext,noPlaceholders,reasonBoxStyled,footerStructure,footerOverflow,previewControls:document.querySelectorAll('#desktop,#mobile,iframe,.toggle').length,wa:{panelWidth,buttonWidth,titleCentered,descCentered,iconPresent,buttonWeight,waFullWidth,waTouchesFooter,deepPhotoFullHeight,deepPhotoRatio,deepPanelHeight,deepCompact,waOutline}};
+  return {scrollWidth:w,emailWidth:rect.width,images:imgs,thumbnailsRight:list,maxFontWeight,isRounded,waAnimation,highlight,editorialContext,noPlaceholders,reasonBoxStyled,footerStructure,signValid,footerOverflow,previewControls:document.querySelectorAll('#desktop,#mobile,iframe,.toggle').length,wa:{panelWidth,buttonWidth,titleCentered,descCentered,iconPresent,buttonWeight,waFullWidth,waTouchesFooter,deepPhotoFullHeight,deepPhotoRatio,deepPanelHeight,deepCompact,waOutline}};
  });
  const missing=result.images.filter(i=>!i.loaded);
  const overflow=result.scrollWidth>width+1;
- if(missing.length||overflow||result.maxFontWeight>700||!result.isRounded||!result.highlight||!result.editorialContext||!result.noPlaceholders||!result.reasonBoxStyled||!result.footerStructure||result.footerOverflow||result.previewControls||!result.wa.titleCentered||!result.wa.descCentered||!result.wa.iconPresent||result.wa.buttonWidth<result.wa.panelWidth*0.70||result.wa.buttonWeight>400||!result.wa.waFullWidth||!result.wa.waTouchesFooter||!result.wa.deepPhotoFullHeight||result.wa.deepPhotoRatio<0.40||!result.wa.deepCompact||!result.wa.waOutline)errors.push({width,overflow,scrollWidth:result.scrollWidth,broken:missing,previewControls:result.previewControls,whatsApp:result.wa});
+ if(missing.length||overflow||result.maxFontWeight>700||!result.isRounded||!result.highlight||!result.editorialContext||!result.noPlaceholders||!result.reasonBoxStyled||!result.footerStructure||!result.signValid||result.footerOverflow||result.previewControls||!result.wa.titleCentered||!result.wa.descCentered||!result.wa.iconPresent||result.wa.buttonWidth<result.wa.panelWidth*0.70||result.wa.buttonWeight>400||!result.wa.waFullWidth||!result.wa.waTouchesFooter||!result.wa.deepPhotoFullHeight||result.wa.deepPhotoRatio<0.40||!result.wa.deepCompact||!result.wa.waOutline)errors.push({width,overflow,scrollWidth:result.scrollWidth,broken:missing,previewControls:result.previewControls,whatsApp:result.wa});
  await page.screenshot({path:path.join(out,'email-'+width+'.png'),fullPage:true});
  console.log(JSON.stringify({width,scrollWidth:result.scrollWidth,emailWidth:result.emailWidth,images:result.images.length,broken:missing.length,overflow,previewControls:result.previewControls,wa:result.wa}));
  await page.close();
@@ -68,7 +72,7 @@ await mobile.evaluate(()=>Promise.all(Array.from(document.images).map(img=>img.d
 await mobile.screenshot({path:path.join(out,'preview-mobile.png'),fullPage:true});
 const direct=await browser.newPage({viewport:{width:375,height:900}});
 await direct.goto('http://127.0.0.1:8765/daily-email.html',{waitUntil:'load'});
-const same=await direct.evaluate(()=>document.body.innerText.includes('BERITA PILIHAN')&&document.body.innerText.includes('Berita terbaru lewat WhatsApp')&&document.body.innerText.includes('Today Highlights'));
+const same=await direct.evaluate(()=>document.body.innerText.includes('BERITA PILIHAN')&&document.body.innerText.includes('Berita terbaru lewat WhatsApp')&&document.body.innerText.includes('Today Highlights')&&document.querySelector('.daily-closing')?.innerText.includes('Itu kabar pilihan kami hari ini.'));
 if(!same)errors.push({directEmail:"Mismatch with home page"});
 await direct.close();await mobile.close();await p.close();
 await browser.close();server.close();
