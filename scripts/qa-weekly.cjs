@@ -42,7 +42,7 @@ await page.close();
 }
 const direct=await browser.newPage({viewport:{width:375,height:900}});
 await direct.goto('http://127.0.0.1:8766/weekly-email.html',{waitUntil:'load'});
-const directMatch=await direct.evaluate(()=>document.body.innerText.includes('Sepekan dalam 60 detik')&&document.body.innerText.includes('Minggu ini')&&document.body.innerText.includes('Berita terbaru lewat WhatsApp'));
+const directMatch=await direct.evaluate(()=>document.body.innerText.includes('Minggu ini dalam 60 detik')&&document.body.innerText.includes('Minggu ini')&&document.body.innerText.includes('Berita terbaru lewat WhatsApp'));
 if(!directMatch)errors.push({directMatch:false});
 await direct.close();
 await browser.close();server.close();
