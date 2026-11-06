@@ -28,9 +28,18 @@ const unsubscribe=[...document.querySelectorAll('a')].find(a=>a.innerText.includ
 const policy=[...document.querySelectorAll('a')].find(a=>a.innerText.includes('Kebijakan Privasi'));
 const editorial=!!document.querySelector('.guardian-heading');
 const portrait=document.querySelector('.editor-portrait');
+const editorNote=document.querySelector('.editor-note');
+const editorCopy=document.querySelector('.editor-byline'),editorPhotoCell=document.querySelector('.editor-photo-cell');
+const editorStyle=editorNote&&getComputedStyle(editorNote);
+const editorPhotoStyle=portrait&&getComputedStyle(portrait);
 const editorValid=editorial?!!portrait&&portrait.complete&&portrait.naturalWidth>0&&
-  portrait.src.endsWith('/assets/editors/titis-widyatmoko.jpg')&&!!document.querySelector('.editor-note')&&!!document.querySelector('.editor-note-title')&&document.querySelector('.editor-note-title').innerText.includes('Lebih dekat dengan cerita')&&
-  text.includes('Titis Widyatmoko')&&text.includes('Pemimpin Redaksi Liputan6.com') : !portrait;
+  portrait.src.endsWith('/assets/editors/titis-widyatmoko.jpg')&&!!editorNote&&
+  document.querySelector('.editor-note-title')?.innerText.includes('Titis Widyatmoko')&&
+  document.querySelector('.editor-note-desc')?.innerText.includes('Pagi ini, kami pilihkan kabar')&&
+  text.includes('Pemimpin Redaksi Liputan6.com')&&
+  editorStyle.borderBottomStyle==='dashed'&&editorStyle.borderTopStyle==='none'&&
+  editorPhotoStyle.clipPath.startsWith('polygon(')&&
+  editorCopy.getBoundingClientRect().right<=editorPhotoCell.getBoundingClientRect().left+2 : !portrait;
 const wa=document.querySelector('.wa-button'),google=document.querySelector('.google-button');
   const googleLogo=google?.querySelector('img.google-brand-icon');
   const googleLogoValid=!!googleLogo&&googleLogo.complete&&googleLogo.naturalWidth>0&&googleLogo.src.endsWith('Google_icon_2025.png');

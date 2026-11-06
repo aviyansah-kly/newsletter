@@ -35,20 +35,20 @@ html,body{min-width:0!important;overflow-x:hidden!important}.shell{padding:0!imp
 .google-button{border:2px solid transparent!important;background:linear-gradient(var(--google-fill,#fff),var(--google-fill,#fff)) padding-box,conic-gradient(from var(--google-ring-angle,0deg),#4285F4 0%,#EA4335 25%,#FBBC05 50%,#34A853 75%,#4285F4 100%) border-box!important;animation:googleRingSpin 1.8s cubic-bezier(.25,.1,.2,1) 1 both}
 }
 @media (prefers-reduced-motion:reduce){.google-button{animation:none!important}}
+@supports (clip-path:polygon(0 0,100% 0,100% 100%)){.editor-portrait{clip-path:polygon(35.0% 20.3%,32.2% 23.8%,31.9% 26.6%,29.4% 32.8%,29.4% 50.9%,31.2% 55.6%,34.4% 57.8%,36.2% 63.7%,38.8% 68.1%,37.8% 72.8%,29.7% 76.9%,21.9% 79.4%,19.7% 80.9%,18.1% 80.6%,10.6% 85.0%,7.5% 88.8%,3.8% 99.7%,99.7% 99.7%,99.7% 91.2%,97.5% 89.7%,95.6% 86.9%,91.6% 84.4%,90.0% 84.4%,87.8% 82.5%,80.3% 80.3%,73.4% 77.2%,69.7% 74.4%,69.1% 72.5%,67.8% 71.6%,67.2% 68.8%,65.0% 66.9%,65.9% 56.2%,69.1% 56.2%,70.3% 55.3%,73.4% 48.4%,73.1% 42.8%,70.9% 41.2%,70.6% 30.9%,69.1% 26.2%,66.9% 22.8%,60.9% 20.0%,60.6% 15.6%,53.4% 15.6%,50.3% 14.7%,47.2% 15.6%,43.4% 15.6%,42.8% 17.5%);-webkit-clip-path:polygon(35.0% 20.3%,32.2% 23.8%,31.9% 26.6%,29.4% 32.8%,29.4% 50.9%,31.2% 55.6%,34.4% 57.8%,36.2% 63.7%,38.8% 68.1%,37.8% 72.8%,29.7% 76.9%,21.9% 79.4%,19.7% 80.9%,18.1% 80.6%,10.6% 85.0%,7.5% 88.8%,3.8% 99.7%,99.7% 99.7%,99.7% 91.2%,97.5% 89.7%,95.6% 86.9%,91.6% 84.4%,90.0% 84.4%,87.8% 82.5%,80.3% 80.3%,73.4% 77.2%,69.7% 74.4%,69.1% 72.5%,67.8% 71.6%,67.2% 68.8%,65.0% 66.9%,65.9% 56.2%,69.1% 56.2%,70.3% 55.3%,73.4% 48.4%,73.1% 42.8%,70.9% 41.2%,70.6% 30.9%,69.1% 26.2%,66.9% 22.8%,60.9% 20.0%,60.6% 15.6%,53.4% 15.6%,50.3% 14.7%,47.2% 15.6%,43.4% 15.6%,42.8% 17.5%)}}
 .editor-note-title{font-family:'Playfair Display',Georgia,serif}
 @media screen and (max-width:620px){
-.editor-note-inner{padding:18px 17px 20px!important}
-.editor-photo-cell{width:80px!important;min-width:80px!important}
-.editor-portrait{width:80px!important;height:80px!important}
-.editor-byline{padding-left:13px!important}
-.editor-note-title{font-size:20px!important;line-height:1.27!important}
+.editor-byline{padding:8px 5px 15px 0!important}
+.editor-photo-cell{width:120px!important;min-width:120px!important}
+.editor-portrait{width:120px!important;height:auto!important}
+.editor-note-title{font-size:21px!important;line-height:1.25!important}
+.editor-note-desc{font-size:11px!important}
 }
 @media screen and (max-width:360px){
-.editor-note-inner{padding:16px 13px 18px!important}
-.editor-photo-cell{width:72px!important;min-width:72px!important}
-.editor-portrait{width:72px!important;height:72px!important}
-.editor-note-title{font-size:18px!important}
-.editor-byline{padding-left:12px!important}
+.editor-photo-cell{width:108px!important;min-width:108px!important}
+.editor-portrait{width:108px!important}
+.editor-note-title{font-size:19px!important}
+.editor-note-desc{font-size:11px!important;line-height:1.5!important}
 }
 </style>
 <!--[if mso]><style>body,td,p,a{font-family:Arial,Helvetica,sans-serif!important}h1,h2,h3{font-family:Georgia,serif!important}</style><![endif]--></head>
@@ -63,22 +63,19 @@ html,body{min-width:0!important;overflow-x:hidden!important}.shell{padding:0!imp
 <p style="margin:0 0 2px;color:#FFCDA4;font-size:10px;letter-spacing:1.35px;font-weight:700">LIPUTAN6 / EDISI PAGI</p>
 <h1 class="guardian-heading" style="margin:0;font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:48px;font-weight:700;line-height:1.12;letter-spacing:-1.45px;color:#FFFFFF">Berita hari ini,<br><span style="color:#FFAF8B">apa maknanya?</span></h1></td></tr>
 <tr><td class="pad editorial-intro" style="padding:31px 42px 30px;background:#FFFFFF">
-<!-- Editor identity for design review; editorial note needs approval before sending -->
-<table role="presentation" class="editor-note" width="100%" cellpadding="0" cellspacing="0" bgcolor="#F3F6F8" style="width:100%;margin:0 0 24px;background:#F3F6F8;border:1px solid #E3EAEE;border-collapse:separate!important;border-spacing:0;border-radius:13px;overflow:hidden">
-<tr><td style="height:4px;background:#F0542C;font-size:1px;line-height:4px">&nbsp;</td></tr>
-<tr><td class="editor-note-inner" style="padding:20px 21px 22px">
-<p style="margin:0 0 15px;color:#DB542F;font-size:10px;font-weight:700;line-height:1.5;letter-spacing:1.3px">CATATAN PEMIMPIN REDAKSI</p>
-<table role="presentation" class="editor-profile" width="100%" cellpadding="0" cellspacing="0" style="width:100%">
+<!-- Editor note for design review; confirm wording and attribution with editorial before production. -->
+<table role="presentation" class="editor-note" width="100%" cellpadding="0" cellspacing="0" style="width:100%;background:#FFFFFF;border:0;border-bottom:1px dashed #BAC2C9;border-collapse:separate!important;border-spacing:0">
 <tr>
-<td class="editor-photo-cell" valign="top" width="92" style="width:92px;min-width:92px;padding:0"><a href="https://www.liputan6.com/profile/titis-widyatmoko" style="display:block"><img class="editor-portrait" src="https://aviyansah-kly.github.io/newsletter/assets/editors/titis-widyatmoko.jpg" alt="Titis Widyatmoko" width="92" height="92" style="display:block;width:92px;height:92px;object-fit:cover;object-position:center 27%;border-radius:10px"></a></td>
-<td valign="middle" class="editor-byline" style="padding:0 0 0 17px">
-<h2 class="editor-note-title" style="margin:0 0 10px;color:#193449;font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:23px;font-weight:700;line-height:1.28;letter-spacing:-.4px">Lebih dekat dengan cerita hari ini.</h2>
-<p style="margin:0 0 3px;font-size:13px;line-height:1.35;font-weight:700;color:#1C3546"><a href="https://www.liputan6.com/profile/titis-widyatmoko" style="color:#1C3546;text-decoration:none">Titis Widyatmoko</a></p>
-<p class="editor-role" style="margin:0;color:#6C7B86;font-size:11px;line-height:1.5">Pemimpin Redaksi Liputan6.com</p>
-</td></tr></table></td></tr></table>
-<p style="margin:0 0 13px;font-size:13px;font-weight:700;color:#193245">Selamat pagi,</p>
-<p class="editorial-lead" style="margin:0 0 12px;color:#263947;font-family:'Playfair Display',Georgia,serif;font-size:17px;line-height:1.73">Kabar dari Lumajang kembali mengingatkan kita bahwa bencana bukan hanya soal angka, tetapi juga tentang akses jalan yang terputus dan warga yang harus tetap waspada.</p>
-<p style="margin:0;color:#5D6A74;font-size:13px;line-height:1.8">Pagi ini kami merangkum tiga berita lain, lalu mengajak kamu melihat lebih dekat apa yang terjadi di sekitar Semeru.</p>
+<td class="editor-byline" valign="middle" style="padding:10px 8px 18px 0">
+<p style="margin:0 0 12px;color:#E45230;font-size:10px;letter-spacing:1.15px;line-height:1.5;font-weight:700">CATATAN PEMIMPIN REDAKSI</p>
+<h2 class="editor-note-title" style="margin:0 0 4px;color:#173247;font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:25px;line-height:1.25;font-style:italic;font-weight:600;letter-spacing:-.4px">Titis Widyatmoko</h2>
+<p class="editor-role" style="margin:0 0 12px;color:#85919B;font-size:10px;line-height:1.5">Pemimpin Redaksi Liputan6.com</p>
+<p class="editor-note-desc" style="margin:0;color:#4E6271;font-size:12px;line-height:1.7">Pagi ini, kami pilihkan kabar yang penting dan perlu dicermati.</p>
+</td>
+<td class="editor-photo-cell" valign="bottom" align="right" width="161" style="width:161px;min-width:161px;padding:0;text-align:right;vertical-align:bottom">
+<img class="editor-portrait" src="https://aviyansah-kly.github.io/newsletter/assets/editors/titis-widyatmoko.jpg" alt="Foto Titis Widyatmoko" width="161" height="161" style="display:block;width:161px;max-width:100%;height:auto;margin:0 0 0 auto;border:0;background:transparent;object-fit:contain">
+</td>
+</tr></table>
 </td></tr>
 <tr><td class="pad guardian-brief" bgcolor="#F4F6F7" style="padding:23px 42px 24px;background:#F4F6F7;border-top:1px solid #E7EBED;border-bottom:1px solid #E7EBED">
 <p style="margin:0 0 6px;color:#E45230;font-size:10px;font-weight:700;letter-spacing:1.1px">UNTUK YANG SEDANG SIBUK</p>
