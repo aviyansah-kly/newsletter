@@ -69,7 +69,7 @@ const copy=editorial?document.querySelector('.guardian-story-title'):document.qu
 const card=editorial?document.querySelector('.email'):document.querySelector('.digest-feature');
 const imageRect=image?.getBoundingClientRect(),copyRect=copy?.getBoundingClientRect(),cardRect=card?.getBoundingClientRect();
 const imageLayout=!!imageRect&&!!copyRect&&!!cardRect&&(editorial?
- imageRect.width>=cardRect.width-3&&imageRect.top>=copyRect.bottom-2:
+ Math.abs(imageRect.left-copyRect.left)<=2&&Math.abs(imageRect.width-copyRect.width)<=3&&imageRect.top>=copyRect.bottom-2&&getComputedStyle(image).borderTopLeftRadius==='12px':
  (innerWidth<=620?imageRect.width>=cardRect.width-4&&imageRect.bottom<=copyRect.top+3:imageRect.left>copyRect.left+copyRect.width-4));
 return {scrollWidth:document.documentElement.scrollWidth,emailWidth:email?.getBoundingClientRect().width,
 images:images.length,broken:images.filter(i=>!i.ok),imageLayout,editorValid,channelsValid,noSectionGap,heroCopyValid,readableContent,
