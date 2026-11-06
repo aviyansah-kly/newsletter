@@ -17,10 +17,15 @@ const images=[...document.images].map(x=>({alt:x.alt,ok:x.complete&&x.naturalWid
 const email=document.querySelector('.email'),footer=document.querySelector('.footer-content'),panel=document.querySelector('.wa-panel');
 const p=panel?.getBoundingClientRect(),f=footer?.getBoundingClientRect();
 const wa=panel?.querySelector('.wa-button'),google=panel?.querySelector('.google-button');
+  const googleLogo=google?.querySelector('img.google-brand-icon');
+  const googleLogoValid=!!googleLogo&&googleLogo.complete&&googleLogo.naturalWidth>0&&googleLogo.src.endsWith('Google_icon_2025.png');
+  const googleRingValid=!!google&&getComputedStyle(google).animationName.includes('googleRingSpin')&&getComputedStyle(google).backgroundImage.includes('conic-gradient');
+ 
 const wr=wa?.getBoundingClientRect(),gr=google?.getBoundingClientRect();
 const channelsValid=!!p&&!!wr&&!!gr&&!!wa&&!!google&&
   wa.getAttribute('href')==='https://whatsapp.com/channel/0029Va7woyJ0AgWCuTizri2W'&&
   google.getAttribute('href')==='https://www.google.com/preferences/source?q=liputan6.com'&&
+    googleLogoValid&&googleRingValid&&
   panel.innerText.includes('kanal pilihanmu')&&
   (innerWidth<=620?wr.width>=p.width*.76&&gr.width>=p.width*.76&&wr.bottom<=gr.top+2:
     wr.right<=gr.left+2&&Math.abs(wr.top-gr.top)<3);

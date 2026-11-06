@@ -26,11 +26,16 @@ for(const width of widths){
   const panelWidth=panel?.getBoundingClientRect().width||0;
   const buttonWidth=button?.getBoundingClientRect().width||0;
   const google=document.querySelector('.google-button');
+  const googleLogo=google?.querySelector('img.google-brand-icon');
+  const googleLogoValid=!!googleLogo&&googleLogo.complete&&googleLogo.naturalWidth>0&&googleLogo.src.endsWith('Google_icon_2025.png');
+  const googleRingValid=!!google&&getComputedStyle(google).animationName.includes('googleRingSpin')&&getComputedStyle(google).backgroundImage.includes('conic-gradient');
+ 
   const waRect=button?.getBoundingClientRect(),googleRect=google?.getBoundingClientRect();
   const channelValid=!!waRect&&!!googleRect&&!!panel&&
     document.querySelector('.wa-title')?.innerText.includes('kanal pilihanmu')&&
     button.getAttribute('href')==='https://whatsapp.com/channel/0029Va7woyJ0AgWCuTizri2W'&&
     google.getAttribute('href')==='https://www.google.com/preferences/source?q=liputan6.com'&&
+    googleLogoValid&&googleRingValid&&
     (innerWidth<=620 ?
        waRect.width>=panel.getBoundingClientRect().width*.76&&googleRect.width>=panel.getBoundingClientRect().width*.76&&waRect.bottom<=googleRect.top+2 :
        waRect.right<=googleRect.left+2&&Math.abs(waRect.top-googleRect.top)<3);

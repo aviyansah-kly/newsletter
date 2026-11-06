@@ -32,11 +32,16 @@ const editorValid=editorial?!!portrait&&portrait.complete&&portrait.naturalWidth
   portrait.src.endsWith('/assets/editors/titis-widyatmoko.jpg')&&
   text.includes('Titis Widyatmoko')&&text.includes('Pemimpin Redaksi Liputan6.com') : !portrait;
 const wa=document.querySelector('.wa-button'),google=document.querySelector('.google-button');
+  const googleLogo=google?.querySelector('img.google-brand-icon');
+  const googleLogoValid=!!googleLogo&&googleLogo.complete&&googleLogo.naturalWidth>0&&googleLogo.src.endsWith('Google_icon_2025.png');
+  const googleRingValid=!!google&&getComputedStyle(google).animationName.includes('googleRingSpin')&&getComputedStyle(google).backgroundImage.includes('conic-gradient');
+ 
 const panel=document.querySelector('.wa-panel'),pr=panel?.getBoundingClientRect();
 const wr=wa?.getBoundingClientRect(),gr=google?.getBoundingClientRect();
 const channelsValid=!!wr&&!!gr&&!!pr&&
   wa.getAttribute('href')==='https://whatsapp.com/channel/0029Va7woyJ0AgWCuTizri2W'&&
   google.getAttribute('href')==='https://www.google.com/preferences/source?q=liputan6.com'&&
+    googleLogoValid&&googleRingValid&&
   text.includes('Ikuti Liputan6 di kanal pilihanmu')&&
   (innerWidth<=620 ? wr.width>=pr.width*.76&&gr.width>=pr.width*.76&&wr.bottom<=gr.top+2 :
    wr.right<=gr.left+2&&Math.abs(wr.top-gr.top)<3);

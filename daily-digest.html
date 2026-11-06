@@ -33,6 +33,12 @@ html,body{min-width:0!important;overflow-x:hidden!important}
 .wa-content{padding:25px 21px 27px!important;text-align:center!important}
 .wa-title,.wa-description{text-align:center!important}
 }
+@property --google-ring-angle{syntax:"<angle>";initial-value:0deg;inherits:false}
+@keyframes googleRingSpin{from{--google-ring-angle:0deg}to{--google-ring-angle:360deg}}
+@supports (background:conic-gradient(red,blue)){
+.google-button{border:2px solid transparent!important;background:linear-gradient(#fff,#fff) padding-box,conic-gradient(from var(--google-ring-angle,0deg),#4285F4 0%,#EA4335 25%,#FBBC05 50%,#34A853 75%,#4285F4 100%) border-box!important;animation:googleRingSpin 1.8s cubic-bezier(.25,.1,.2,1) 1 both}
+}
+@media (prefers-reduced-motion:reduce){.google-button{animation:none!important}}
 </style></head>
 <body><div style="display:none!important;max-height:0;overflow:hidden;opacity:0">Daily Digest Liputan6: tiga kabar utama, satu cerita penting, mudah dibaca.</div>
 <table role="presentation" width="100%" bgcolor="#E8ECEF"><tr><td class="shell" align="center" style="padding:35px 10px 55px">
@@ -109,7 +115,7 @@ html,body{min-width:0!important;overflow-x:hidden!important}
 <td class="channel-cell" valign="top" width="50%" style="width:50%;padding:0 6px 0 0">
 <a class="wa-button channel-button" href="https://whatsapp.com/channel/0029Va7woyJ0AgWCuTizri2W" style="display:block;box-sizing:border-box;width:100%;padding:13px 7px;border:2px solid #8DD6AB;border-radius:999px;background:#D2F0DE;color:#21673F;font-size:12px;line-height:21px;font-weight:400;text-decoration:none;text-align:center;white-space:nowrap"><img src="https://aviyansah-kly.github.io/newsletter/assets/WA.svg" width="19" height="19" alt="" style="display:inline-block;width:19px;height:19px;vertical-align:middle;margin-right:5px"> <span style="display:inline-block;vertical-align:middle">Ikuti Channel WhatsApp</span></a>
 </td><td class="channel-cell" valign="top" width="50%" style="width:50%;padding:0 0 0 6px">
-<a class="google-button channel-button" href="https://www.google.com/preferences/source?q=liputan6.com" style="display:block;box-sizing:border-box;width:100%;padding:13px 5px;border:2px solid #C9D8E1;border-radius:999px;background:#FFFFFF;color:#2B4355;font-size:12px;line-height:21px;font-weight:600;text-decoration:none;text-align:center;white-space:nowrap"><span aria-hidden="true" style="display:inline-block;vertical-align:middle;margin-right:4px;color:#4285F4;font-size:18px;font-weight:700">G</span> <span style="display:inline-block;vertical-align:middle">Tambahkan ke Sumber Pilihan</span></a>
+<a class="google-button channel-button" href="https://www.google.com/preferences/source?q=liputan6.com" style="display:block;box-sizing:border-box;width:100%;padding:13px 5px;border:2px solid #C9D8E1;border-radius:999px;background:#FFFFFF;color:#2B4355;font-size:12px;line-height:21px;font-weight:600;text-decoration:none;text-align:center;white-space:nowrap"><img class="google-brand-icon" src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Google_icon_2025.png" alt="" width="19" height="19" style="display:inline-block;width:19px;height:19px;vertical-align:middle;margin-right:5px;object-fit:contain"> <span style="display:inline-block;vertical-align:middle">Tambahkan ke Sumber Pilihan</span></a>
 </td></tr></table>
 </td></tr></table></td></tr>
 <tr><td class="pad footer-content" bgcolor="#F8F9FA" style="padding:32px 40px 27px;background:#F8F9FA;border-top:1px solid #E8EAEC">
