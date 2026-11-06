@@ -82,7 +82,7 @@ await mobile.evaluate(()=>Promise.all(Array.from(document.images).map(img=>img.d
 await mobile.screenshot({path:path.join(out,'preview-mobile.png'),fullPage:true});
 const direct=await browser.newPage({viewport:{width:375,height:900}});
 await direct.goto('http://127.0.0.1:8765/daily-email.html',{waitUntil:'load'});
-const same=await direct.evaluate(()=>document.body.innerText.includes('BERITA PILIHAN')&&document.body.innerText.includes('Berita terbaru lewat WhatsApp')&&document.body.innerText.includes('Today Highlights')&&document.querySelector('.daily-closing')?.innerText.includes('Itu kabar pilihan kami hari ini.'));
+const same=await direct.evaluate(()=>document.body.innerText.includes('BERITA PILIHAN')&&document.body.innerText.includes('Ikuti Liputan6 di kanal pilihanmu')&&document.body.innerText.includes('Today Highlights')&&document.querySelector('.daily-closing')?.innerText.includes('Itu kabar pilihan kami hari ini.'));
 if(!same)errors.push({directEmail:"Mismatch with home page"});
 await direct.close();await mobile.close();await p.close();
 await browser.close();server.close();
