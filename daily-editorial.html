@@ -19,7 +19,8 @@ html,body{min-width:0!important;overflow-x:hidden!important}.shell{padding:0!imp
 .wa-button{width:100%!important;box-sizing:border-box!important}.footer-content{padding-top:27px!important;padding-bottom:26px!important}
 }
 @media screen and (max-width:360px){.pad{padding-left:16px!important;padding-right:16px!important}.guardian-heading{font-size:32px!important}.guardian-story-title{font-size:27px!important}.guardian-photo{height:195px!important}.related-photo{width:91px!important;min-width:91px!important}.related-image{width:91px!important;height:104px!important}}
-.google-button:hover{background:#F3F8FE!important}
+.google-button:hover{--google-fill:#F3F8FE;box-shadow:0 2px 12px rgba(66,133,244,.14)!important}
+.google-button:focus-visible{--google-fill:#F3F8FE;outline:2px solid #4285F4;outline-offset:3px}
 @media screen and (max-width:620px){
 .channel-actions,.channel-actions tbody,.channel-actions tr{display:block!important;width:100%!important;max-width:100%!important}
 .channel-cell{display:block!important;width:100%!important;max-width:100%!important;box-sizing:border-box!important;padding:0!important}
@@ -31,9 +32,24 @@ html,body{min-width:0!important;overflow-x:hidden!important}.shell{padding:0!imp
 @property --google-ring-angle{syntax:"<angle>";initial-value:0deg;inherits:false}
 @keyframes googleRingSpin{from{--google-ring-angle:0deg}to{--google-ring-angle:360deg}}
 @supports (background:conic-gradient(red,blue)){
-.google-button{border:2px solid transparent!important;background:linear-gradient(#fff,#fff) padding-box,conic-gradient(from var(--google-ring-angle,0deg),#4285F4 0%,#EA4335 25%,#FBBC05 50%,#34A853 75%,#4285F4 100%) border-box!important;animation:googleRingSpin 1.8s cubic-bezier(.25,.1,.2,1) 1 both}
+.google-button{border:2px solid transparent!important;background:linear-gradient(var(--google-fill,#fff),var(--google-fill,#fff)) padding-box,conic-gradient(from var(--google-ring-angle,0deg),#4285F4 0%,#EA4335 25%,#FBBC05 50%,#34A853 75%,#4285F4 100%) border-box!important;animation:googleRingSpin 1.8s cubic-bezier(.25,.1,.2,1) 1 both}
 }
 @media (prefers-reduced-motion:reduce){.google-button{animation:none!important}}
+.editor-note-title{font-family:'Playfair Display',Georgia,serif}
+@media screen and (max-width:620px){
+.editor-note-inner{padding:18px 17px 20px!important}
+.editor-photo-cell{width:80px!important;min-width:80px!important}
+.editor-portrait{width:80px!important;height:80px!important}
+.editor-byline{padding-left:13px!important}
+.editor-note-title{font-size:20px!important;line-height:1.27!important}
+}
+@media screen and (max-width:360px){
+.editor-note-inner{padding:16px 13px 18px!important}
+.editor-photo-cell{width:72px!important;min-width:72px!important}
+.editor-portrait{width:72px!important;height:72px!important}
+.editor-note-title{font-size:18px!important}
+.editor-byline{padding-left:12px!important}
+}
 </style>
 <!--[if mso]><style>body,td,p,a{font-family:Arial,Helvetica,sans-serif!important}h1,h2,h3{font-family:Georgia,serif!important}</style><![endif]--></head>
 <body><div style="display:none!important;max-height:0;overflow:hidden;opacity:0">Catatan Pagi Liputan6: kabar utama, tiga berita singkat, dan hal yang perlu dipahami.</div>
@@ -47,15 +63,19 @@ html,body{min-width:0!important;overflow-x:hidden!important}.shell{padding:0!imp
 <p style="margin:0 0 2px;color:#FFCDA4;font-size:10px;letter-spacing:1.35px;font-weight:700">LIPUTAN6 / EDISI PAGI</p>
 <h1 class="guardian-heading" style="margin:0;font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:48px;font-weight:700;line-height:1.12;letter-spacing:-1.45px;color:#FFFFFF">Berita hari ini,<br><span style="color:#FFAF8B">apa maknanya?</span></h1></td></tr>
 <tr><td class="pad editorial-intro" style="padding:31px 42px 30px;background:#FFFFFF">
-<!-- Editor profile for design review; obtain editorial copy approval before live send -->
-<table role="presentation" class="editor-profile" width="100%" cellpadding="0" cellspacing="0" style="width:100%;margin:0 0 20px;border-bottom:1px solid #E6ECEF"><tr>
-<td valign="top" width="64" style="width:64px;padding:0 0 17px"><a href="https://www.liputan6.com/profile/titis-widyatmoko" style="display:block"><img class="editor-portrait" src="https://aviyansah-kly.github.io/newsletter/assets/editors/titis-widyatmoko.jpg" alt="Titis Widyatmoko" width="64" height="64" style="display:block;width:64px;height:64px;object-fit:cover;border-radius:50%"></a></td>
-<td valign="middle" style="padding:0 0 17px 14px">
-<p style="margin:0 0 5px;color:#E0522D;font-size:10px;font-weight:700;letter-spacing:1px;line-height:1.4">DARI PEMIMPIN REDAKSI</p>
-<p style="margin:0 0 3px;color:#163145;font-size:15px;line-height:1.35;font-weight:700"><a href="https://www.liputan6.com/profile/titis-widyatmoko" style="color:#163145;text-decoration:none">Titis Widyatmoko</a></p>
-<p style="margin:0;color:#71808B;font-size:11px;line-height:1.5">Pemimpin Redaksi Liputan6.com</p>
-</td></tr></table>
-
+<!-- Editor identity for design review; editorial note needs approval before sending -->
+<table role="presentation" class="editor-note" width="100%" cellpadding="0" cellspacing="0" bgcolor="#F3F6F8" style="width:100%;margin:0 0 24px;background:#F3F6F8;border:1px solid #E3EAEE;border-collapse:separate!important;border-spacing:0;border-radius:13px;overflow:hidden">
+<tr><td style="height:4px;background:#F0542C;font-size:1px;line-height:4px">&nbsp;</td></tr>
+<tr><td class="editor-note-inner" style="padding:20px 21px 22px">
+<p style="margin:0 0 15px;color:#DB542F;font-size:10px;font-weight:700;line-height:1.5;letter-spacing:1.3px">CATATAN PEMIMPIN REDAKSI</p>
+<table role="presentation" class="editor-profile" width="100%" cellpadding="0" cellspacing="0" style="width:100%">
+<tr>
+<td class="editor-photo-cell" valign="top" width="92" style="width:92px;min-width:92px;padding:0"><a href="https://www.liputan6.com/profile/titis-widyatmoko" style="display:block"><img class="editor-portrait" src="https://aviyansah-kly.github.io/newsletter/assets/editors/titis-widyatmoko.jpg" alt="Titis Widyatmoko" width="92" height="92" style="display:block;width:92px;height:92px;object-fit:cover;object-position:center 27%;border-radius:10px"></a></td>
+<td valign="middle" class="editor-byline" style="padding:0 0 0 17px">
+<h2 class="editor-note-title" style="margin:0 0 10px;color:#193449;font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:23px;font-weight:700;line-height:1.28;letter-spacing:-.4px">Lebih dekat dengan cerita hari ini.</h2>
+<p style="margin:0 0 3px;font-size:13px;line-height:1.35;font-weight:700;color:#1C3546"><a href="https://www.liputan6.com/profile/titis-widyatmoko" style="color:#1C3546;text-decoration:none">Titis Widyatmoko</a></p>
+<p class="editor-role" style="margin:0;color:#6C7B86;font-size:11px;line-height:1.5">Pemimpin Redaksi Liputan6.com</p>
+</td></tr></table></td></tr></table>
 <p style="margin:0 0 13px;font-size:13px;font-weight:700;color:#193245">Selamat pagi,</p>
 <p class="editorial-lead" style="margin:0 0 12px;color:#263947;font-family:'Playfair Display',Georgia,serif;font-size:17px;line-height:1.73">Kabar dari Lumajang kembali mengingatkan kita bahwa bencana bukan hanya soal angka, tetapi juga tentang akses jalan yang terputus dan warga yang harus tetap waspada.</p>
 <p style="margin:0;color:#5D6A74;font-size:13px;line-height:1.8">Pagi ini kami merangkum tiga berita lain, lalu mengajak kamu melihat lebih dekat apa yang terjadi di sekitar Semeru.</p>

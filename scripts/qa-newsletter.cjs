@@ -71,8 +71,16 @@ for(const width of widths){
   return {scrollWidth:w,emailWidth:rect.width,images:imgs,thumbnailsRight:list,maxFontWeight,isRounded,waAnimation,highlight,editorialContext,noPlaceholders,reasonBoxStyled,footerStructure,signValid,legal:!!legal,footerOverflow,previewControls:document.querySelectorAll('#desktop,#mobile,iframe,.toggle').length,wa:{panelWidth,buttonWidth,channelValid,titleCentered,descCentered,iconPresent,buttonWeight,waFullWidth,waTouchesFooter,deepPhotoFullHeight,deepPhotoRatio,deepPanelHeight,deepCompact,waOutline}};
  });
  const missing=result.images.filter(i=>!i.loaded);
+ await page.hover('.google-button');
+ const googleHoverOK=await page.evaluate(()=>{
+  const btn=document.querySelector('.google-button'),style=btn&&getComputedStyle(btn);
+  return !!style&&style.backgroundImage.includes('linear-gradient')&&style.backgroundImage.includes('conic-gradient')&&
+    style.getPropertyValue('--google-fill').trim()==='#F3F8FE'&&
+    btn.querySelector('.google-brand-icon')?.getBoundingClientRect().width>=18&&
+    btn.getBoundingClientRect().width>=150;
+ });
  const overflow=result.scrollWidth>width+1;
- if(missing.length||overflow||result.maxFontWeight>700||!result.isRounded||!result.highlight||!result.editorialContext||!result.noPlaceholders||!result.reasonBoxStyled||!result.footerStructure||!result.signValid||!result.legal||result.footerOverflow||result.previewControls||!result.wa.titleCentered||!result.wa.descCentered||!result.wa.iconPresent||!result.wa.channelValid||result.wa.buttonWeight>400||!result.wa.waFullWidth||!result.wa.waTouchesFooter||!result.wa.deepPhotoFullHeight||result.wa.deepPhotoRatio<0.40||!result.wa.deepCompact||!result.wa.waOutline)errors.push({width,overflow,scrollWidth:result.scrollWidth,broken:missing,previewControls:result.previewControls,whatsApp:result.wa});
+ if(!googleHoverOK||missing.length||overflow||result.maxFontWeight>700||!result.isRounded||!result.highlight||!result.editorialContext||!result.noPlaceholders||!result.reasonBoxStyled||!result.footerStructure||!result.signValid||!result.legal||result.footerOverflow||result.previewControls||!result.wa.titleCentered||!result.wa.descCentered||!result.wa.iconPresent||!result.wa.channelValid||result.wa.buttonWeight>400||!result.wa.waFullWidth||!result.wa.waTouchesFooter||!result.wa.deepPhotoFullHeight||result.wa.deepPhotoRatio<0.40||!result.wa.deepCompact||!result.wa.waOutline)errors.push({width,overflow,scrollWidth:result.scrollWidth,broken:missing,previewControls:result.previewControls,whatsApp:result.wa});
  await page.screenshot({path:path.join(out,'email-'+width+'.png'),fullPage:true});
  console.log(JSON.stringify({width,scrollWidth:result.scrollWidth,emailWidth:result.emailWidth,images:result.images.length,broken:missing.length,overflow,previewControls:result.previewControls,wa:result.wa}));
  await page.close();
