@@ -85,7 +85,7 @@ design:editorial?(
  text.indexOf('Tiga kabar, satu menit.')<text.indexOf('FOKUS HARI INI')&&
  text.indexOf('FOKUS HARI INI')<text.indexOf('Dua cerita untuk dilanjutkan.')
 ):
- text.includes('3 kabar dalam 30 detik')&&text.includes('Yang dekat dengan harimu')&&!!document.querySelector('.digest-hero-title'),
+ ['Kalau cuma punya 10 detik','Kalau punya 30 detik','Kalau punya 1 menit','QUICK HITS','Punya 2 menit? Ini konteksnya.'].every(s=>text.includes(s))&&text.indexOf('Kalau cuma punya 10 detik')<text.indexOf('Kalau punya 30 detik')&&text.indexOf('Kalau punya 30 detik')<text.indexOf('Kalau punya 1 menit')&&document.querySelectorAll('.time-panel').length===2&&!!document.querySelector('.digest-hero-title'),
 privacy:policy?.getAttribute('href')==='https://www.liputan6.com/info/disclaimer',
 unsubscribe:unsubscribe?.getAttribute('href')==='{{unsubscribe_url}}',
 footer:!!document.querySelector('.footer-content')&&!!document.querySelector('.wa-panel'),
