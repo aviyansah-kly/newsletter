@@ -38,7 +38,7 @@ return {scrollWidth:document.documentElement.scrollWidth,emailWidth:email?.getBo
 images:images.length,broken:images.filter(i=>!i.ok),imageLayout,
 copy:text.includes('Redaksi Liputan6')&&text.includes('Ringkasan Pagi')&&text.includes('nama@email.com')&&text.includes('Berhenti berlangganan'),
 design:classic?text.includes('Tiga cerita lain yang perlu kamu tahu')&&text.includes('Selamat pagi.') :
- text.includes('3 kabar dalam 30 detik')&&text.includes('Yang perlu kamu tahu hari ini'),
+ text.includes('3 kabar dalam 30 detik')&&text.includes('Yang dekat dengan harimu')&&!!document.querySelector('.digest-hero-title'),
 privacy:policy?.getAttribute('href')==='https://www.liputan6.com/info/disclaimer',
 unsubscribe:unsubscribe?.getAttribute('href')==='{{unsubscribe_url}}',
 footer:!!document.querySelector('.footer-content')&&!!document.querySelector('.wa-panel'),
