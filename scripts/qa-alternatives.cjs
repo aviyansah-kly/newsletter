@@ -64,7 +64,7 @@ const channelsValid=!!wr&&!!gr&&!!pr&&
   text.includes('Ikuti Liputan6 di kanal pilihanmu')&&
   (innerWidth<=620 ? wr.width>=pr.width*.76&&gr.width>=pr.width*.76&&wr.bottom<=gr.top+2 :
    wr.right<=gr.left+2&&Math.abs(wr.top-gr.top)<3);
-const cardLinks=editorial?true:document.querySelectorAll('.fast-fact').length===2&&[...document.querySelectorAll('.fast-fact')].every(c=>!!c.querySelector('a[href*="utm_content=10s_"]'))&&document.querySelectorAll('.article-cta').length>=11&&[...document.querySelectorAll('.article-cta')].every(a=>a.getAttribute('href')?.includes('utm_source=newsletter')&&a.getAttribute('href')?.includes('utm_medium=email'));
+const cardLinks=editorial?true:document.querySelectorAll('.fast-fact').length===2&&[...document.querySelectorAll('.fast-fact')].every(c=>!!c.querySelector('a[href*="utm_content=10s_"]'))&&document.querySelectorAll('.article-cta').length===2&&document.querySelectorAll('.summary-link').length>=13&&[...document.querySelectorAll('.summary-link,.article-cta')].every(a=>a.getAttribute('href')?.includes('utm_source=newsletter')&&a.getAttribute('href')?.includes('utm_medium=email'));const paletteValid=editorial?true:getComputedStyle(document.querySelector('.email')).backgroundImage.includes('linear-gradient')&&getComputedStyle(document.querySelector('.time-panel')).backgroundColor==='rgb(247, 248, 249)';
 const context=document.querySelector('.digest-context');const contextValid=editorial?true:!!context&&context.querySelectorAll('tr').length===3&&[...context.querySelectorAll('p')].some(x=>x.textContent.trim()==='APA YANG TERJADI?')&&getComputedStyle(context).borderTopStyle==='solid';const image=editorial?document.querySelector('.guardian-photo'):document.querySelector('.digest-feature-img');
 const copy=editorial?document.querySelector('.guardian-story-title'):document.querySelector('.digest-feature-copy');
 const card=editorial?document.querySelector('.email'):document.querySelector('.digest-feature');
@@ -73,7 +73,7 @@ const imageLayout=!!imageRect&&!!copyRect&&!!cardRect&&(editorial?
  Math.abs(imageRect.left-copyRect.left)<=2&&Math.abs(imageRect.width-copyRect.width)<=3&&imageRect.top>=copyRect.bottom-2&&getComputedStyle(image).borderTopLeftRadius==='12px':
  (innerWidth<=620?imageRect.width>=cardRect.width-4&&imageRect.bottom<=copyRect.top+3:imageRect.left>copyRect.left+copyRect.width-4));
 return {scrollWidth:document.documentElement.scrollWidth,emailWidth:email?.getBoundingClientRect().width,
-images:images.length,broken:images.filter(i=>!i.ok),imageLayout,contextValid,cardLinks,editorValid,channelsValid,noSectionGap,heroCopyValid,readableContent,
+images:images.length,broken:images.filter(i=>!i.ok),imageLayout,contextValid,cardLinks,paletteValid,editorValid,channelsValid,noSectionGap,heroCopyValid,readableContent,
 copy:text.includes('Redaksi Liputan6')&&text.includes('Ringkasan Pagi')&&text.includes('nama@email.com')&&text.includes('Berhenti berlangganan'),
 design:editorial?(
  text.includes('Tiga kabar, satu menit.')&&
@@ -99,7 +99,7 @@ const googleHoverOK=await page.evaluate(()=>{
  style.getPropertyValue('--google-fill').trim()==='#F3F8FE'&&
  btn.querySelector('.google-brand-icon')?.getBoundingClientRect().width>=18&&btn.getBoundingClientRect().width>=150;
 });
-const pass=result.scrollWidth<=width+1&&result.images>=9&&result.broken.length===0&&result.imageLayout&&result.contextValid&&result.cardLinks&&result.editorValid&&result.channelsValid&&result.noSectionGap&&result.heroCopyValid&&result.readableContent&&googleHoverOK&&result.copy&&result.design&&result.privacy&&result.unsubscribe&&result.footer&&!result.placeholder;
+const pass=result.scrollWidth<=width+1&&result.images>=9&&result.broken.length===0&&result.imageLayout&&result.contextValid&&result.cardLinks&&result.paletteValid&&result.editorValid&&result.channelsValid&&result.noSectionGap&&result.heroCopyValid&&result.readableContent&&googleHoverOK&&result.copy&&result.design&&result.privacy&&result.unsubscribe&&result.footer&&!result.placeholder;
 console.log(JSON.stringify({filename,width,pass,scrollWidth:result.scrollWidth,emailWidth:result.emailWidth,images:result.images,broken:result.broken.length,imageLayout:result.imageLayout}));
 if(!pass)errors.push({filename,width,...result});
 await page.screenshot({path:path.join(out,filename.replace('.html','')+'-'+width+'.png'),fullPage:true});
