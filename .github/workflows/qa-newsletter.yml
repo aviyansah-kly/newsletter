@@ -9,6 +9,10 @@ on:
       - 'weekly-email.html'
       - 'scripts/qa-weekly.cjs'
       - 'index.html'
+      - 'daily-editorial.html'
+      - 'daily-digest.html'
+      - 'daily-alternatives.html'
+      - 'scripts/qa-alternatives.cjs'
       - 'assets/**'
       - 'scripts/qa-newsletter.cjs'
       - '.github/workflows/qa-newsletter.yml'
@@ -31,6 +35,15 @@ jobs:
         run: node scripts/qa-newsletter.cjs
       - name: Run Weekly desktop and mobile QA
         run: node scripts/qa-weekly.cjs
+      - name: QA Daily alternative designs
+        run: node scripts/qa-alternatives.cjs
+      - name: Upload alternative preview screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: daily-alternatives-qa
+          path: qa-alternatives-screenshots/
+          retention-days: 10
       - name: Upload visual QA screenshots
         if: always()
         uses: actions/upload-artifact@v4
