@@ -25,6 +25,15 @@ for(const width of widths){
   const desc=document.querySelector('.wa-description');
   const panelWidth=panel?.getBoundingClientRect().width||0;
   const buttonWidth=button?.getBoundingClientRect().width||0;
+  const google=document.querySelector('.google-button');
+  const waRect=button?.getBoundingClientRect(),googleRect=google?.getBoundingClientRect();
+  const channelValid=!!waRect&&!!googleRect&&!!panel&&
+    document.querySelector('.wa-title')?.innerText.includes('kanal pilihanmu')&&
+    button.getAttribute('href')==='https://whatsapp.com/channel/0029Va7woyJ0AgWCuTizri2W'&&
+    google.getAttribute('href')==='https://www.google.com/preferences/source?q=liputan6.com'&&
+    (innerWidth<=620 ?
+       waRect.width>=panel.getBoundingClientRect().width*.76&&googleRect.width>=panel.getBoundingClientRect().width*.76&&waRect.bottom<=googleRect.top+2 :
+       waRect.right<=googleRect.left+2&&Math.abs(waRect.top-googleRect.top)<3);
   const titleCentered=title&&getComputedStyle(title).textAlign==='center';
   const descCentered=desc&&getComputedStyle(desc).textAlign==='center';
   const iconPresent=!!button?.querySelector('img[src$="/WA.svg"]');
@@ -54,11 +63,11 @@ for(const width of widths){
   const waFullWidth=!!(panelRect&&Math.abs(panelRect.width-rect.width)<3);
   const waTouchesFooter=!!(panelRect&&footerRect&&Math.abs(panelRect.bottom-footerRect.top)<3);
 
-  return {scrollWidth:w,emailWidth:rect.width,images:imgs,thumbnailsRight:list,maxFontWeight,isRounded,waAnimation,highlight,editorialContext,noPlaceholders,reasonBoxStyled,footerStructure,signValid,legal:!!legal,footerOverflow,previewControls:document.querySelectorAll('#desktop,#mobile,iframe,.toggle').length,wa:{panelWidth,buttonWidth,titleCentered,descCentered,iconPresent,buttonWeight,waFullWidth,waTouchesFooter,deepPhotoFullHeight,deepPhotoRatio,deepPanelHeight,deepCompact,waOutline}};
+  return {scrollWidth:w,emailWidth:rect.width,images:imgs,thumbnailsRight:list,maxFontWeight,isRounded,waAnimation,highlight,editorialContext,noPlaceholders,reasonBoxStyled,footerStructure,signValid,legal:!!legal,footerOverflow,previewControls:document.querySelectorAll('#desktop,#mobile,iframe,.toggle').length,wa:{panelWidth,buttonWidth,channelValid,titleCentered,descCentered,iconPresent,buttonWeight,waFullWidth,waTouchesFooter,deepPhotoFullHeight,deepPhotoRatio,deepPanelHeight,deepCompact,waOutline}};
  });
  const missing=result.images.filter(i=>!i.loaded);
  const overflow=result.scrollWidth>width+1;
- if(missing.length||overflow||result.maxFontWeight>700||!result.isRounded||!result.highlight||!result.editorialContext||!result.noPlaceholders||!result.reasonBoxStyled||!result.footerStructure||!result.signValid||!result.legal||result.footerOverflow||result.previewControls||!result.wa.titleCentered||!result.wa.descCentered||!result.wa.iconPresent||result.wa.buttonWidth<result.wa.panelWidth*0.70||result.wa.buttonWeight>400||!result.wa.waFullWidth||!result.wa.waTouchesFooter||!result.wa.deepPhotoFullHeight||result.wa.deepPhotoRatio<0.40||!result.wa.deepCompact||!result.wa.waOutline)errors.push({width,overflow,scrollWidth:result.scrollWidth,broken:missing,previewControls:result.previewControls,whatsApp:result.wa});
+ if(missing.length||overflow||result.maxFontWeight>700||!result.isRounded||!result.highlight||!result.editorialContext||!result.noPlaceholders||!result.reasonBoxStyled||!result.footerStructure||!result.signValid||!result.legal||result.footerOverflow||result.previewControls||!result.wa.titleCentered||!result.wa.descCentered||!result.wa.iconPresent||!result.wa.channelValid||result.wa.buttonWeight>400||!result.wa.waFullWidth||!result.wa.waTouchesFooter||!result.wa.deepPhotoFullHeight||result.wa.deepPhotoRatio<0.40||!result.wa.deepCompact||!result.wa.waOutline)errors.push({width,overflow,scrollWidth:result.scrollWidth,broken:missing,previewControls:result.previewControls,whatsApp:result.wa});
  await page.screenshot({path:path.join(out,'email-'+width+'.png'),fullPage:true});
  console.log(JSON.stringify({width,scrollWidth:result.scrollWidth,emailWidth:result.emailWidth,images:result.images.length,broken:missing.length,overflow,previewControls:result.previewControls,wa:result.wa}));
  await page.close();
