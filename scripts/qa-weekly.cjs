@@ -21,7 +21,7 @@ scrollWidth:document.documentElement.scrollWidth,emailWidth:email.getBoundingCli
 weight:Math.max(...[...document.querySelectorAll('h1,h2,h3')].map(x=>parseInt(getComputedStyle(x).fontWeight,10))),
 sections:['Minggu ini dalam 60 detik','Cerita Minggu Ini','Yang dekat dengan harimu','YANG RAMAI DIPERTANYAKAN','CATAT UNTUK MINGGU DEPAN'].every(x=>document.body.innerText.includes(x)),
  title:document.querySelector('h1')?.innerText.includes('Minggu ini'),
-footer:!!footer&&footer.innerText.includes('Weekly Newsletter')&&footer.innerText.includes('Jelajahi Liputan6'),
+footer:!!footer&&footer.innerText.includes('Ringkasan Mingguan')&&footer.innerText.includes('Jelajahi Liputan6'),
 panelFull:!!p&&Math.abs(p.width-email.getBoundingClientRect().width)<2,digestBox:!!document.querySelector('.digest-box')&&getComputedStyle(document.querySelector('.digest-box')).borderTopLeftRadius==='14px',
 blend:!!document.querySelector('.weekly-digest-backdrop')&&getComputedStyle(document.querySelector('.weekly-digest-backdrop')).backgroundImage.includes('linear-gradient'),
 coverFull:!!document.querySelector('.weekly-cover')&&Math.abs(document.querySelector('.weekly-cover').getBoundingClientRect().width-email.getBoundingClientRect().width)<2,
