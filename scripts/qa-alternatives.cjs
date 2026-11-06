@@ -26,18 +26,28 @@ const images=[...document.images].map(i=>({alt:i.alt,ok:i.complete&&i.naturalWid
 const text=document.body.innerText;
 const unsubscribe=[...document.querySelectorAll('a')].find(a=>a.innerText.includes('Berhenti berlangganan'));
 const policy=[...document.querySelectorAll('a')].find(a=>a.innerText.includes('Kebijakan Privasi'));
-const classic=!!document.querySelector('.classic-title');
-const image=classic?document.querySelector('.classic-deep-img'):document.querySelector('.digest-feature-img');
-const copy=classic?document.querySelector('.classic-deep-copy'):document.querySelector('.digest-feature-copy');
-const card=classic?document.querySelector('.classic-deep'):document.querySelector('.digest-feature');
+const editorial=!!document.querySelector('.guardian-heading');
+const image=editorial?document.querySelector('.guardian-photo'):document.querySelector('.digest-feature-img');
+const copy=editorial?document.querySelector('.guardian-story-title'):document.querySelector('.digest-feature-copy');
+const card=editorial?document.querySelector('.email'):document.querySelector('.digest-feature');
 const imageRect=image?.getBoundingClientRect(),copyRect=copy?.getBoundingClientRect(),cardRect=card?.getBoundingClientRect();
-const imageLayout=!!imageRect&&!!copyRect&&!!cardRect&&(innerWidth<=620?
- imageRect.width>=cardRect.width-4&&imageRect.bottom<=copyRect.top+3:
- imageRect.left>copyRect.left+copyRect.width-4);
+const imageLayout=!!imageRect&&!!copyRect&&!!cardRect&&(editorial?
+ imageRect.width>=cardRect.width-3&&imageRect.top>=copyRect.bottom-2:
+ (innerWidth<=620?imageRect.width>=cardRect.width-4&&imageRect.bottom<=copyRect.top+3:imageRect.left>copyRect.left+copyRect.width-4));
 return {scrollWidth:document.documentElement.scrollWidth,emailWidth:email?.getBoundingClientRect().width,
 images:images.length,broken:images.filter(i=>!i.ok),imageLayout,
 copy:text.includes('Redaksi Liputan6')&&text.includes('Ringkasan Pagi')&&text.includes('nama@email.com')&&text.includes('Berhenti berlangganan'),
-design:classic?text.includes('Tiga cerita lain yang perlu kamu tahu')&&text.includes('Selamat pagi.') :
+design:editorial?(
+ text.includes('Tiga kabar, satu menit.')&&
+ text.includes('FOKUS HARI INI')&&
+ text.includes('APA YANG TERJADI?')&&
+ text.includes('MENGAPA INI PENTING?')&&
+ text.includes('Dua cerita untuk dilanjutkan.')&&
+ getComputedStyle(document.querySelector('.guardian-heading')).fontFamily.includes('Playfair Display')&&
+ document.querySelectorAll('.related-photo').length===2&&
+ text.indexOf('Tiga kabar, satu menit.')<text.indexOf('FOKUS HARI INI')&&
+ text.indexOf('FOKUS HARI INI')<text.indexOf('Dua cerita untuk dilanjutkan.')
+):
  text.includes('3 kabar dalam 30 detik')&&text.includes('Yang dekat dengan harimu')&&!!document.querySelector('.digest-hero-title'),
 privacy:policy?.getAttribute('href')==='https://www.liputan6.com/info/disclaimer',
 unsubscribe:unsubscribe?.getAttribute('href')==='{{unsubscribe_url}}',
