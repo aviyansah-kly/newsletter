@@ -31,13 +31,23 @@ const portrait=document.querySelector('.editor-portrait');
 const editorNote=document.querySelector('.editor-note');
 const editorCopy=document.querySelector('.editor-byline'),editorPhotoCell=document.querySelector('.editor-photo-cell');
 const editorStyle=editorNote&&getComputedStyle(editorNote);
+const intro=editorial&&document.querySelector('.editorial-intro');
+const brief=editorial&&document.querySelector('.guardian-brief');
+const h1=editorial&&document.querySelector('.guardian-heading');
+const noSectionGap=editorial?!!intro&&!!brief&&
+ Math.abs(intro.getBoundingClientRect().bottom-brief.getBoundingClientRect().top)<=2&&
+ Math.abs(editorNote.getBoundingClientRect().bottom-intro.getBoundingClientRect().bottom)<=3&&
+ getComputedStyle(intro).borderBottomStyle==='dashed'&&
+ getComputedStyle(brief).borderTopStyle==='none':true;
+const heroCopyValid=editorial?!!h1&&h1.innerText.includes('Pagi ini,')&&h1.innerText.includes('yang perlu kamu tahu.')&&parseFloat(getComputedStyle(h1).fontSize)<=38:true;
+const readableContent=editorial?[...document.querySelectorAll('.editor-note-desc,.editorial-body,.wa-description,.wa-button,.google-button')].every(x=>parseFloat(getComputedStyle(x).fontSize)>=14):true;
 const editorPhotoStyle=portrait&&getComputedStyle(portrait);
 const editorValid=editorial?!!portrait&&portrait.complete&&portrait.naturalWidth>0&&
   portrait.src.endsWith('/assets/editors/titis-widyatmoko.jpg')&&!!editorNote&&
   document.querySelector('.editor-note-title')?.innerText.includes('Titis Widyatmoko')&&
   document.querySelector('.editor-note-desc')?.innerText.includes('Pagi ini, kami pilihkan kabar')&&
   text.includes('Pemimpin Redaksi Liputan6.com')&&
-  editorStyle.borderBottomStyle==='dashed'&&editorStyle.borderTopStyle==='none'&&
+  editorStyle.borderBottomStyle==='none'&&editorStyle.borderTopStyle==='none'&&
   editorPhotoStyle.clipPath.startsWith('polygon(')&&
   editorCopy.getBoundingClientRect().right<=editorPhotoCell.getBoundingClientRect().left+2 : !portrait;
 const wa=document.querySelector('.wa-button'),google=document.querySelector('.google-button');
@@ -62,7 +72,7 @@ const imageLayout=!!imageRect&&!!copyRect&&!!cardRect&&(editorial?
  imageRect.width>=cardRect.width-3&&imageRect.top>=copyRect.bottom-2:
  (innerWidth<=620?imageRect.width>=cardRect.width-4&&imageRect.bottom<=copyRect.top+3:imageRect.left>copyRect.left+copyRect.width-4));
 return {scrollWidth:document.documentElement.scrollWidth,emailWidth:email?.getBoundingClientRect().width,
-images:images.length,broken:images.filter(i=>!i.ok),imageLayout,editorValid,channelsValid,
+images:images.length,broken:images.filter(i=>!i.ok),imageLayout,editorValid,channelsValid,noSectionGap,heroCopyValid,readableContent,
 copy:text.includes('Redaksi Liputan6')&&text.includes('Ringkasan Pagi')&&text.includes('nama@email.com')&&text.includes('Berhenti berlangganan'),
 design:editorial?(
  text.includes('Tiga kabar, satu menit.')&&
@@ -88,7 +98,7 @@ const googleHoverOK=await page.evaluate(()=>{
  style.getPropertyValue('--google-fill').trim()==='#F3F8FE'&&
  btn.querySelector('.google-brand-icon')?.getBoundingClientRect().width>=18&&btn.getBoundingClientRect().width>=150;
 });
-const pass=result.scrollWidth<=width+1&&result.images>=9&&result.broken.length===0&&result.imageLayout&&result.editorValid&&result.channelsValid&&googleHoverOK&&result.copy&&result.design&&result.privacy&&result.unsubscribe&&result.footer&&!result.placeholder;
+const pass=result.scrollWidth<=width+1&&result.images>=9&&result.broken.length===0&&result.imageLayout&&result.editorValid&&result.channelsValid&&result.noSectionGap&&result.heroCopyValid&&result.readableContent&&googleHoverOK&&result.copy&&result.design&&result.privacy&&result.unsubscribe&&result.footer&&!result.placeholder;
 console.log(JSON.stringify({filename,width,pass,scrollWidth:result.scrollWidth,emailWidth:result.emailWidth,images:result.images,broken:result.broken.length,imageLayout:result.imageLayout}));
 if(!pass)errors.push({filename,width,...result});
 await page.screenshot({path:path.join(out,filename.replace('.html','')+'-'+width+'.png'),fullPage:true});
