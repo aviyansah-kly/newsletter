@@ -108,10 +108,10 @@ await page.close();
 const compare=await browser.newPage({viewport:{width:1200,height:900}});
 await compare.goto('http://127.0.0.1:8767/daily-alternatives.html',{waitUntil:'load'});
 const links=await compare.locator('.cards .button').count();
-if(links!==3)errors.push({comparisonLinks:links});
+if(links!==4)errors.push({comparisonLinks:links});
 await compare.screenshot({path:path.join(out,'comparison-desktop.png'),fullPage:true});
 await compare.close();
 await browser.close();server.close();
 if(errors.length){console.error(JSON.stringify({FAIL:errors},null,2));process.exit(1)}
-console.log('PASS: both alternative Daily designs and comparison page have working layout and links');
+console.log('PASS: alternative Daily designs and comparison page have working layout and links');
 })().catch(e=>{console.error(e);process.exit(1)});
