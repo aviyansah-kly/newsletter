@@ -5,6 +5,8 @@ Isi paket:
 - daily-business.html — Alternatif 02, Morning Digest
 - daily-editorial-cards.html — Alternatif 03, Catatan Pemred
 - assets/*.png — pengganti semua gambar SVG dalam ketiga HTML
+- assets/lucide-arrow-*.png dan assets/editors/*.jpg — aset raster asli
+- assets/LUCIDE-LICENSE.txt — atribusi ikon Lucide
 
 Setiap SVG ditransformasikan menjadi PNG transparan dengan resolusi minimal 1,5x
 dari lebar tampil terbesar di ketiga HTML. Ukuran atribut width/height HTML
