@@ -125,6 +125,32 @@ def build() -> None:
         (DEST / name).write_text(text, encoding="utf-8")
         print(f"Converted HTML: {name}, replaced {len(changed)} SVG image uses")
 
+    # Include repository-owned JPG/PNG assets still referenced by the HTML.
+    # This keeps the handover package useful even when IT moves it to a new CDN.
+    bundled = set()
+    for file_text in original.values():
+        for tag in IMG_RE.findall(file_text):
+            src = SRC_RE.search(tag)
+            if not src:
+                continue
+            url = urllib.parse.urlsplit(html_lib.unescape(src.group(3)))
+            if url.netloc != "aviyansah-kly.github.io" or not url.path.startswith("/newsletter/assets/"):
+                continue
+            relative = urllib.parse.unquote(url.path[len("/newsletter/"):])
+            if Path(relative).suffix.lower() not in {".png", ".jpg", ".jpeg", ".webp", ".gif"}:
+                continue
+            original_file = ROOT / relative
+            if not original_file.is_file():
+                raise RuntimeError("Missing repository asset " + relative)
+            target = DEST / relative
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(original_file, target)
+            bundled.add(relative)
+    license_file = ROOT / "assets" / "LUCIDE-LICENSE.txt"
+    if license_file.exists():
+        shutil.copy2(license_file, ASSETS / license_file.name)
+    print(f"Preserved {len(bundled)} already-rasterized repository assets")
+
     readme = """# Liputan6 — IT Handover (PNG 1.5x)
 
 Isi paket:
@@ -132,6 +158,8 @@ Isi paket:
 - daily-business.html — Alternatif 02, Morning Digest
 - daily-editorial-cards.html — Alternatif 03, Catatan Pemred
 - assets/*.png — pengganti semua gambar SVG dalam ketiga HTML
+- assets/lucide-arrow-*.png dan assets/editors/*.jpg — aset raster asli
+- assets/LUCIDE-LICENSE.txt — atribusi ikon Lucide
 
 Setiap SVG ditransformasikan menjadi PNG transparan dengan resolusi minimal 1,5x
 dari lebar tampil terbesar di ketiga HTML. Ukuran atribut width/height HTML
