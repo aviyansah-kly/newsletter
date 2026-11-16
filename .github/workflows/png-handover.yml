@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - .github/workflows/png-handover.yml
+      - scripts/build-handover-png.py
   workflow_dispatch:
 
 permissions:
