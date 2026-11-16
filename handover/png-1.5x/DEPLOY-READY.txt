@@ -1,0 +1,3 @@
+PNG 1.5x IT handover generated 2026-11-16.
+Three newsletter HTML templates use absolute PNG URLs from this folder.
+This marker ensures the GitHub Pages deployment includes the committed raster assets.
